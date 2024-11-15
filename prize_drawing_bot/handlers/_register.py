@@ -99,11 +99,3 @@ async def btn_state_register_confirm(callback: CallbackQuery,
         key: str = "user-registration-confirm-accept"
         await message.answer(text=i18n.get(key),
                              reply_markup=None)
-
-    # if message.from_user:
-    #     database.add_user(message.from_user.id)
-    #     logger.info("Зарегистрирован новый пользователь.")
-    #     key = "user-registration-confirm-accept"
-    #     await message.answer(text=i18n.get(key),
-    #                          reply_markup=None)
-    # await state.clear()  # Выключает машину состояний
