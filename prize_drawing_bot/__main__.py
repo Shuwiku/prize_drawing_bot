@@ -11,25 +11,20 @@ GitHub: github.com/Shuwiku/prize_drawing_bot;
 """
 
 import asyncio
-import json
-from pathlib import Path
 
 from loguru import logger
 
 import bot
+from config import load_config
 from setup import setup
 
 
 CONFIG_FILE: str = "config.json"
 
-# Чтение файла конфигурации
-config_file_path: Path = Path(CONFIG_FILE).resolve()  # Абсолютный путь к файлу
-with open(config_file_path, mode="r", encoding="utf-8") as f:
-    config = json.load(f)
-print("Файл конфигурации загружен.")  # "Логирование"
-
-setup(config)  # Настройка бота
+load_config(CONFIG_FILE)  # Чтение файла конфигурации
+setup()  # Настройка бота
 logger.info("Запуск диспетчера.")  # Логирование
 
 # Запуск бота
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(bot.get_dispatcher().start_polling(bot.get_bot()))

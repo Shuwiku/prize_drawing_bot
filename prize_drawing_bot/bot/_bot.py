@@ -78,3 +78,4 @@ def init(bot_token: str,
     i18n.setup(dispatcher=__dispatcher)
 
     logger.trace("Интернационализация настроена.")  # Логирование
+    logger.info(f"Путь к файлам локализации: {locale_path}")

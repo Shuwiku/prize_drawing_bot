@@ -7,16 +7,16 @@ from pathlib import Path
 from loguru import logger
 
 
-def setup_logging(config: dict) -> None:
+def setup_logging(log_format, log_level_file, log_level_std, log_path) -> None:
     """Настраивает логирование бота.
 
     Args:
         config (dict): Конфигурация логирования.
     """
     logger.remove()  # Убирает настройки по умолчанию
-    logger.add(sink=sys.stderr, level=config["log_level"]["std"],
-               format=config["log_format"])  # Вывод логов в терминал
-    log_files_path: Path = Path(config["log_path"]).resolve()
-    logger.add(sink=log_files_path, level=config["log_level"]["file"],
-               format=config["log_format"])  # Запись логов в файл
+    # Вывод логов в терминал
+    logger.add(sink=sys.stderr, level=log_level_std, format=log_format)
+    # Запись логов в файл
+    logger.add(sink=log_path, level=log_level_file, format=log_format)
     logger.trace("Логирование настроено.")  # Логирование
+    logger.info(f"Путь к файлам журнала: {log_path}")  # Логирование
