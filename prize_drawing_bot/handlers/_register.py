@@ -7,7 +7,7 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, InaccessibleMessage, Message
-from aiogram_i18n import I18nContext, LazyProxy
+from aiogram_i18n import I18nContext
 from loguru import logger
 
 from data import Database
@@ -94,7 +94,7 @@ async def btn_state_register_confirm(callback: CallbackQuery,
     await state.clear()
     await remove_keyboard(callback.from_user.id, message.message_id)
     if message.from_user:
-        database.add_user(message.from_user.id)
+        database.add_user(callback.from_user.id)
         logger.info("Зарегистрирован новый пользователь.")
         key: str = "user-registration-confirm-accept"
         await message.answer(text=i18n.get(key),
