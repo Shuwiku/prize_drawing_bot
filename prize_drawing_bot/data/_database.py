@@ -2,8 +2,9 @@
 """Класс базы данных."""
 
 import sqlite3
+from pathlib import Path
 from sqlite3 import Connection, Cursor
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from loguru import logger
 
@@ -13,7 +14,7 @@ from . import _queries
 class Database:
     """Класс базы данных."""
 
-    def __init__(self, database_file: str):
+    def __init__(self, database_file: Union[Path, str]):
         """Инициализация объекта базы данных.
 
         Создаёт сессию с указанной базой данных, настраивает её и
@@ -70,7 +71,6 @@ class Database:
         """
         self._execute(_queries.add_user, (uid,))
 
-    # TODO: ...
     def get_user(self, uid: int) -> Any:
         """Получает данные пользователя из базы данных.
 

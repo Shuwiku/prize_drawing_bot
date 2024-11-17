@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """Инструменты для инициализации и получения объекта базы данных."""
 
+from pathlib import Path
+from typing import Union
+
 from loguru import logger
 
 from ._database import Database
@@ -18,7 +21,7 @@ def get_database() -> Database:
     return __database
 
 
-def init(database_file_path: str) -> None:
+def init(database_file_path: Union[Path, str]) -> None:
     """Создаёт объект даны данных, который хранится в закрытой переменной."""
     global __database
     __database = Database(database_file_path)

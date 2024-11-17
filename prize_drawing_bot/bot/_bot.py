@@ -5,11 +5,11 @@
 а так же даёт доступ к ним (get_bot, get_dispatcher).
 """
 
-from typing import Final
+from pathlib import Path
+from typing import Final, Union
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
-from aiogram.enums import ParseMode
 from aiogram_i18n import I18nMiddleware
 from aiogram_i18n.cores.fluent_runtime_core import FluentRuntimeCore
 from loguru import logger
@@ -41,8 +41,9 @@ def get_dispatcher() -> Dispatcher:
 
 
 def init(bot_token: str,
-         locale_path: str,
-         locale_default: str = "en"
+         locale_path: Union[Path, str],
+         locale_default: str,
+         parse_mode: str
          ) -> None:
     """Создаёт и настраивает объекты бота, диспетчера и интернационализации.
 
@@ -50,7 +51,7 @@ def init(bot_token: str,
         bot_token (str): Токен телеграм бота.
         locale_path (str): Путь к файлам локализации "messages.ftl".
         locale_default (str): Локаль по умолчанию для новых пользователей.
-            По умолчанию - "en".
+        parse_mode (str): Режим форматирования текста в сообщениях бота.
     """
     global __bot, __dispatcher
 
@@ -58,7 +59,7 @@ def init(bot_token: str,
     properties: Final = DefaultBotProperties(
         allow_sending_without_reply=False,
         link_preview_prefer_small_media=True,
-        parse_mode=ParseMode.HTML
+        parse_mode=parse_mode
     )
     __bot = Bot(bot_token, default=properties)
 

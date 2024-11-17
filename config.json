@@ -1,9 +1,11 @@
 {
-    "database_file": "database/database.sqlite3",
+    "database_file_path": "database/database.sqlite3",
     "locale_default": "ru",
-    "locale_folder": "locales/{locale}",
+    "locale_file_name": "messages.ftl",
+    "locales_folder_path": "locales/{locale}",
     "log_format": "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <level>{message}</level>",
     "log_level_file": "INFO",
     "log_level_std": "TRACE",
-    "log_path": "logs/{time:YYYY.MM.DD HH-mm-ss}.log"
+    "log_files_path": "logs/{time:YYYY.MM.DD HH-mm-ss}.log",
+    "parse_mode": "HTML"
 }

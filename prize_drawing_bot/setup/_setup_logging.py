@@ -3,20 +3,30 @@
 
 import sys
 from pathlib import Path
+from typing import Union
 
 from loguru import logger
 
 
-def setup_logging(log_format, log_level_file, log_level_std, log_path) -> None:
+def setup_logging(log_format: str,
+                  log_level_file: str,
+                  log_level_std: str,
+                  log_files_path: Union[Path, str]
+                  ) -> None:
     """Настраивает логирование бота.
 
     Args:
-        config (dict): Конфигурация логирования.
+        log_format (str): Формат логирования.
+        log_level_file (str): Уровень логирования для записи в файл.
+        log_level_std (str): Уровень логирования для вывода в терминал.
+        log_files_path (Union[Path, str]): Путь к файлам логов.
     """
     logger.remove()  # Убирает настройки по умолчанию
-    # Вывод логов в терминал
-    logger.add(sink=sys.stderr, level=log_level_std, format=log_format)
-    # Запись логов в файл
-    logger.add(sink=log_path, level=log_level_file, format=log_format)
+    logger.add(sink=sys.stderr,  # Вывод логов в терминал
+               level=log_level_std, 
+               format=log_format)
+    logger.add(sink=log_files_path,  # Запись логов в файл
+               level=log_level_file, 
+               format=log_format)
     logger.trace("Логирование настроено.")  # Логирование
-    logger.info(f"Путь к файлам журнала: {log_path}")  # Логирование
+    logger.info(f"Путь к файлам журнала: {log_files_path}")  # Логирование

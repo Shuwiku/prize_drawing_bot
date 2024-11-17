@@ -13,13 +13,16 @@ class Config:
     """Конфигурация бота."""
 
     # Путь к файлу базы данных
-    database_file: str = "database.sqlite3"
+    database_file_path: Path = Path("database.sqlite3").resolve()
 
     # Локаль по умолчанию для новых пользователей
     locale_default: str = "ru"
 
+    # Название файла локализации
+    locale_file_name: str = "messages.ftl"
+
     # Путь к файлам локализации
-    locale_folder: str = "locales/{locale}"
+    locales_folder_path: Path = Path("locales/{locale}").resolve()
 
     # Формат логирования
     log_format: str = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>" \
@@ -32,7 +35,10 @@ class Config:
     log_level_std: str = "TRACE"
 
     # Путь к файлам логов
-    log_path: str = "{time:YYYY.MM.DD HH-mm-ss}.log"
+    log_files_path: Path = Path("{time:YYYY.MM.DD HH-mm-ss}.log").resolve()
+
+    # Режим форматирования текста в сообщениях бота
+    parse_mode: str = "HTML"
 
 
 __config: Config
@@ -40,7 +46,9 @@ __config_data: dict
 # Переменные конфигурации, которые являются путями.
 # Этот список нужен для того, чтобы понять, к которым переменным надо
 # применять Path(data).resolve(). Я просто не придумал ничего лучше.
-__paths: list[str] = ["database_file", "locale_folder", "log_path"]
+__paths: list[str] = ["database_file_path", 
+                      "locales_folder_path", 
+                      "log_files_path"]
 
 
 def _set_config_data(field: str) -> None:

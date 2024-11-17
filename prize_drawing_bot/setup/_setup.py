@@ -20,15 +20,21 @@ def setup() -> None:
     config: Config = get_config()
 
     # Настройка логирования
-    setup_logging(config.log_format, config.log_level_file,
-                  config.log_level_std, config.log_path)
+    setup_logging(log_format=config.log_format, 
+                  log_level_file=config.log_level_file,
+                  log_level_std=config.log_level_std, 
+                  log_files_path=config.log_files_path)
 
     # Настройка базы данных
-    data.init(str(config.database_file))
+    data.init(database_file_path=config.database_file_path)
 
     # Получение токена бота и настройка бота, диспетчера и интернационализции
     bot_token: str = load_bot_token()
-    bot.init(bot_token, str(config.locale_folder), config.locale_default)
+    bot.init(bot_token=bot_token, 
+             locale_path=config.locales_folder_path, 
+             locale_default=config.locale_default,
+             parse_mode=config.parse_mode)
 
     # Проверка файлов локализации
-    check_i18n(config.locale_default, str(config.locale_folder))
+    check_i18n(locale_default=config.locale_default, 
+               locale_path=config.locales_folder_path)
