@@ -58,7 +58,7 @@ async def state_register_default(message: Message,
     await remove_keyboard(message.from_user.id, message.message_id - 1)
     await message.answer(text=i18n.get("user-registration-confirm-default"))
     await message.answer(text=i18n.get("user-registration"),
-                            reply_markup=inline_registration_confirm)
+                         reply_markup=inline_registration_confirm)
 
 
 @router.callback_query(F.data == "register_cancel")
@@ -99,4 +99,4 @@ async def btn_state_register_confirm(callback: CallbackQuery,
     logger.info("Зарегистрирован новый пользователь.")
     key: str = "user-registration-confirm-accept"
     await message.answer(text=i18n.get(key),
-                            reply_markup=None)
+                         reply_markup=None)
