@@ -23,10 +23,11 @@ def setup_logging(log_format: str,
     """
     logger.remove()  # Убирает настройки по умолчанию
     logger.add(sink=sys.stderr,  # Вывод логов в терминал
-               level=log_level_std, 
+               level=log_level_std,
                format=log_format)
     logger.add(sink=log_files_path,  # Запись логов в файл
-               level=log_level_file, 
+               level=log_level_file,
                format=log_format)
     logger.trace("Логирование настроено.")  # Логирование
-    logger.info(f"Путь к файлам журнала: {log_files_path}")  # Логирование
+    logger.info("Путь к файлам журнала:")  # Логирование
+    logger.info(f"- '{log_files_path}'")  # Логирование

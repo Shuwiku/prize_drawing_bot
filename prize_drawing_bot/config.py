@@ -46,8 +46,8 @@ __config_data: dict
 # Переменные конфигурации, которые являются путями.
 # Этот список нужен для того, чтобы понять, к которым переменным надо
 # применять Path(data).resolve(). Я просто не придумал ничего лучше.
-__paths: list[str] = ["database_file_path", 
-                      "locales_folder_path", 
+__paths: list[str] = ["database_file_path",
+                      "locales_folder_path",
                       "log_files_path"]
 
 
@@ -97,7 +97,7 @@ def load_config(file_name: str) -> None:
     global __config, __config_data
 
     file_path: Path = Path(file_name).resolve()
-    print(f"Путь к файлу конфигурации: {file_path}")  # "Логирование"
+    print(f"Путь к файлу конфигурации: '{file_path}'")  # "Логирование"
 
     with open(file_path, mode="r", encoding="utf-8") as f:
         __config_data = json.load(f)

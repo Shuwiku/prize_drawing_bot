@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Настраивает бота перед его запуском."""
 
-from pathlib import Path
+import asyncio
+import os
 
 import bot
 import data
@@ -20,9 +21,9 @@ def setup() -> None:
     config: Config = get_config()
 
     # Настройка логирования
-    setup_logging(log_format=config.log_format, 
+    setup_logging(log_format=config.log_format,
                   log_level_file=config.log_level_file,
-                  log_level_std=config.log_level_std, 
+                  log_level_std=config.log_level_std,
                   log_files_path=config.log_files_path)
 
     # Настройка базы данных
@@ -30,11 +31,15 @@ def setup() -> None:
 
     # Получение токена бота и настройка бота, диспетчера и интернационализции
     bot_token: str = load_bot_token()
-    bot.init(bot_token=bot_token, 
-             locale_path=config.locales_folder_path, 
+    bot.init(bot_token=bot_token,
+             locale_path=config.locales_folder_path,
              locale_default=config.locale_default,
              parse_mode=config.parse_mode)
 
     # Проверка файлов локализации
-    check_i18n(locale_default=config.locale_default, 
+    check_i18n(locale_default=config.locale_default,
                locale_path=config.locales_folder_path)
+
+    # Это надо только для windows
+    if os.name == "nt":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

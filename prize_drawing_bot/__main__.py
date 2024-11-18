@@ -25,6 +25,5 @@ load_config(CONFIG_FILE)  # Чтение файла конфигурации
 setup()  # Настройка бота
 logger.info("Запуск диспетчера.")  # Логирование
 
-# Запуск бота
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-asyncio.run(bot.get_dispatcher().start_polling(bot.get_bot()))
+asyncio.run(bot.get_dispatcher().start_polling(bot.get_bot(),  # Запуск бота
+                                               skip_updates=True))
