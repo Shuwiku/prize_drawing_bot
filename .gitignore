@@ -2,5 +2,5 @@
 *.sqlite3
 __pycache__
 .env
-.flake8
+.vscode
 venv
