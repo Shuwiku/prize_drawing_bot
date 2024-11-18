@@ -9,15 +9,15 @@ dirVenv="$PWD/venv"
 fileRequirements="$PWD/requirements.txt"
 
 echo "Создаю виртуальное окружение по адресу: '$dirVenv'."
-quiet python3 -m venv venv
+quiet python3 -m venv "$dirVenv"
 
 echo "Запускаю виртуальное окружение."
-quiet source ./venv/bin/activate
+quiet source "$dirVenv/bin/activate"
 
 echo "Устанавливаю зависимости из файла: '$fileRequirements'."
-quiet python3 -m pip install -r ./requirements.txt
+quiet python3 -m pip install -r "$fileRequirements"
 
 echo "Запускаю бота."
-python3 ./prize_drawing_bot\
+python3 ./prize_drawing_bot
 
 pause
