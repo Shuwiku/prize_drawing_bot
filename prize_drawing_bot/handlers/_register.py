@@ -4,13 +4,14 @@
 from typing import Any
 
 from aiogram import F, Router
-from aiogram.filters import Command
+from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, InaccessibleMessage, Message
 from aiogram_i18n import I18nContext
 from loguru import logger
 
 from data import Database
+from filters import MessageFromUser
 from keyboards.inline import inline_registration_confirm
 from states import Register
 from utils import remove_keyboard
@@ -19,7 +20,9 @@ from utils import remove_keyboard
 router: Router = Router(name=__name__)
 
 
-@router.message(Command("register"))
+@router.message(Command("register"),
+                MessageFromUser(),
+                StateFilter(None))
 async def cmd_register(message: Message,
                        database: Database,
                        i18n: I18nContext,
@@ -32,25 +35,19 @@ async def cmd_register(message: Message,
     """
     logger.debug("Обработка команды \"register\".")
 
-    if not message.from_user:
-        return None
-
-    # Пользователь уже есть в базе данных
-    if database.get_user(message.from_user.id):
-        key = "user-registration-already-registered"
-        await message.answer(text=i18n.get(key))
-
-    # В противном случае переводим машину состояний
-    else:
+    if not database.get_user(message.from_user.id):
         await state.set_state(Register.confirm)
         await message.answer(text=i18n.get("user-registration"),
                              reply_markup=inline_registration_confirm)
+        return None
+
+    await message.answer(text=i18n.get("user-registration-already-registered"))
 
 
-@router.message(Register.confirm)
+@router.message(Register.confirm,
+                MessageFromUser())
 async def state_register_default(message: Message,
-                                 i18n: I18nContext,
-                                 state: FSMContext
+                                 i18n: I18nContext
                                  ) -> None:
     """Обработчик по умолчанию.
 
@@ -58,11 +55,15 @@ async def state_register_default(message: Message,
     кнопку из inline-клавиатуры.
     """
     logger.debug("Обработчик регистрации по умолчанию.")
-    await state.set_state(Register.confirm)
+    await remove_keyboard(message.from_user.id, message.message_id - 1)
     await message.answer(text=i18n.get("user-registration-confirm-default"))
+    await message.answer(text=i18n.get("user-registration"),
+                            reply_markup=inline_registration_confirm)
 
 
 @router.callback_query(F.data == "register_cancel")
+@router.message(Register.confirm,
+                MessageFromUser())
 async def btn_cal_register_cancel(callback: CallbackQuery,
                                   i18n: I18nContext,
                                   state: FSMContext
@@ -80,6 +81,7 @@ async def btn_cal_register_cancel(callback: CallbackQuery,
 
 
 @router.callback_query(F.data == "register_confirm")
+@router.message(Register.confirm)
 async def btn_state_register_confirm(callback: CallbackQuery,
                                      database: Database,
                                      i18n: I18nContext,
@@ -93,9 +95,8 @@ async def btn_state_register_confirm(callback: CallbackQuery,
     message: Any[InaccessibleMessage, Message] = callback.message
     await state.clear()
     await remove_keyboard(callback.from_user.id, message.message_id)
-    if message.from_user:
-        database.add_user(callback.from_user.id)
-        logger.info("Зарегистрирован новый пользователь.")
-        key: str = "user-registration-confirm-accept"
-        await message.answer(text=i18n.get(key),
-                             reply_markup=None)
+    database.add_user(callback.from_user.id)
+    logger.info("Зарегистрирован новый пользователь.")
+    key: str = "user-registration-confirm-accept"
+    await message.answer(text=i18n.get(key),
+                            reply_markup=None)
