@@ -14,7 +14,7 @@ class I18nMiddlewareManager(BaseManager):
 
     async def get_locale(self,
                          event_from_user: User,
-                         database: Optional[Database] = None
+                         database: Database
                          ) -> str:
         """Получает локаль пользователя.
 
@@ -27,17 +27,16 @@ class I18nMiddlewareManager(BaseManager):
             str: Локаль пользователя.
                 Если пользователя нет - вернёт локаль по умолчанию.
         """
-        if database:
-            language: Optional[str] = \
-                database.get_user_language(event_from_user.id)
-            if language:
-                return language
+        language: Optional[str] = database.get_user_language(
+            uid=event_from_user.id)
+        if language:
+            return language
         return str(self.default_locale)
 
     async def set_locale(self,
                          locale: str,
                          event_from_user: User,
-                         database: Optional[Database] = None
+                         database: Database
                          ) -> None:
         """Устанавливает локаль пользователя.
 
@@ -47,5 +46,5 @@ class I18nMiddlewareManager(BaseManager):
             database (Optional[Database]): Объект базы данных.
                 Берётся из мидлваря взаимодействия с базой данных.
         """
-        if database:
-            database.set_user_language(event_from_user.id, locale)
+        database.set_user_language(uid=event_from_user.id,
+                                   language=locale)

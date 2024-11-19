@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Docstring."""
+"""Inline-клавиатура, отправляемая вместе с подтверждением регистрации."""
 
 from typing import Final, Sequence
 

@@ -30,4 +30,4 @@ def setup_logging(log_format: str,
                format=log_format)
     logger.trace("Логирование настроено.")  # Логирование
     logger.info("Путь к файлам журнала:")  # Логирование
-    logger.info(f"- '{log_files_path}'")  # Логирование
+    logger.info(f"$ {log_files_path}")  # Логирование

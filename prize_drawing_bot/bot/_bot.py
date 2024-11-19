@@ -14,8 +14,8 @@ from aiogram_i18n import I18nMiddleware
 from aiogram_i18n.cores.fluent_runtime_core import FluentRuntimeCore
 from loguru import logger
 
-from middlewares import DatabaseMiddleware, I18nMiddlewareManager
 from handlers import router_handlers
+from middlewares import DatabaseMiddleware, I18nMiddlewareManager
 
 
 __bot: Bot
@@ -61,11 +61,12 @@ def init(bot_token: str,
         link_preview_prefer_small_media=True,
         parse_mode=parse_mode
     )
-    __bot = Bot(bot_token, default=properties)
+    __bot = Bot(default=properties,
+                token=bot_token)
 
     # Настройка диспетчера
     __dispatcher = Dispatcher()
-    __dispatcher.include_router(router_handlers)  # Загрузка обработчиков
+    __dispatcher.include_router(router=router_handlers)
     # Мидлварь позволяет получать доступ к базе данных напрямую из обработчиков
     __dispatcher.update.outer_middleware.register(DatabaseMiddleware())
 
@@ -74,10 +75,11 @@ def init(bot_token: str,
 
     # Настройка интернационализации (i18n)
     i18n = I18nMiddleware(core=FluentRuntimeCore(path=locale_path),
-                          manager=I18nMiddlewareManager(),
-                          default_locale=locale_default)
+                          default_locale=locale_default,
+                          manager=I18nMiddlewareManager())
     i18n.setup(dispatcher=__dispatcher)
 
-    logger.trace("Интернационализация настроена.")  # Логирование
+    # Логирование
+    logger.trace("Интернационализация настроена.")
     logger.info("Путь к файлам локализации:")
-    logger.info(f"- '{Path(locale_path) / 'messages.ftl'}'")
+    logger.info(f"$ {Path(locale_path) / 'messages.ftl'}")

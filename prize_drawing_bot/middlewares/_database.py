@@ -20,7 +20,8 @@ class DatabaseMiddleware(BaseMiddleware):
     async def __call__(self,
                        handler: Callable,
                        event: TelegramObject,
-                       data: Dict[str, Any]) -> Awaitable:
+                       data: Dict[str, Any]
+                       ) -> Awaitable:
         """Выдаёт обработчику объект базы данных."""
         data["database"] = self.database
         return await handler(event, data)

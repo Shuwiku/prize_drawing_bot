@@ -94,7 +94,7 @@ def load_config(file_name: str) -> None:
     global __config, __config_data
 
     file_path: Path = Path(file_name).resolve()
-    print(f"Путь к файлу конфигурации: '{file_path}'")  # "Логирование"
+    print(f"Путь к файлу конфигурации: \n$ {file_path}")  # "Логирование"
 
     with open(file_path, mode="r", encoding="utf-8") as f:
         __config_data = json.load(f)

@@ -33,10 +33,12 @@ async def cmd_register(message: Message,
     Запрашивает подтверждение регистрации у пользователя и
     переводит машину состояний в соответствующее состояние.
     """
-    logger.debug("Обработка команды \"register\".")
+    logger.debug("Обработка команды \"register\".")  # Логирование
 
-    if not database.get_user(message.from_user.id):
-        await state.set_state(Register.confirm)
+    # Если пользователя нет в базе данных - настраиваем машину состояний и
+    # запрашиваем у него подтверждение регистрации
+    if not database.get_user(uid=message.from_user.id):  # type: ignore
+        await state.set_state(state=Register.confirm)
         await message.answer(text=i18n.get("user-registration"),
                              reply_markup=inline_registration_confirm)
         return None
@@ -54,16 +56,16 @@ async def state_register_default(message: Message,
     Вызывается в случае, если пользователь по какой-либо причине не нажал на
     кнопку из inline-клавиатуры.
     """
-    logger.debug("Обработчик регистрации по умолчанию.")
-    await remove_keyboard(message.from_user.id, message.message_id - 1)
+    logger.debug("Обработчик регистрации по умолчанию.")  # Логирование
+    await remove_keyboard(chat_id=message.from_user.id,  # type: ignore
+                          message_id=message.message_id - 1)
     await message.answer(text=i18n.get("user-registration-confirm-default"))
     await message.answer(text=i18n.get("user-registration"),
                          reply_markup=inline_registration_confirm)
 
 
 @router.callback_query(F.data == "register_cancel")
-@router.message(Register.confirm,
-                MessageFromUser())
+@router.message(Register.confirm)
 async def btn_cal_register_cancel(callback: CallbackQuery,
                                   i18n: I18nContext,
                                   state: FSMContext
@@ -72,10 +74,11 @@ async def btn_cal_register_cancel(callback: CallbackQuery,
 
     Отключает машину состояний.
     """
-    logger.debug("Отмена регистрации.")
+    logger.debug("Отмена регистрации.")  # Логирование
     message: Any[InaccessibleMessage, Message] = callback.message
     await state.clear()
-    await remove_keyboard(callback.from_user.id, message.message_id)
+    await remove_keyboard(chat_id=callback.from_user.id, 
+                          message_id=message.message_id)
     await message.answer(text=i18n.get("user-registration-confirm-decline"))
     await callback.answer(show_alert=False)
 
@@ -91,12 +94,12 @@ async def btn_state_register_confirm(callback: CallbackQuery,
 
     Добавляет пользователя в базу данных.
     """
-    logger.debug("Подтверждение регистрации.")
+    logger.debug("Подтверждение регистрации.")  # Логирование
     message: Any[InaccessibleMessage, Message] = callback.message
     await state.clear()
-    await remove_keyboard(callback.from_user.id, message.message_id)
-    database.add_user(callback.from_user.id)
-    logger.info("Зарегистрирован новый пользователь.")
-    key: str = "user-registration-confirm-accept"
-    await message.answer(text=i18n.get(key),
+    await remove_keyboard(chat_id=callback.from_user.id, 
+                          message_id=message.message_id)
+    database.add_user(uid=callback.from_user.id)
+    logger.info("Зарегистрирован новый пользователь.")  # Логирование
+    await message.answer(text=i18n.get("user-registration-confirm-accept"),
                          reply_markup=None)

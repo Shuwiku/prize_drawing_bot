@@ -8,13 +8,15 @@ dirScript=$PWD
 dirVenv="$PWD/venv"
 fileRequirements="$PWD/requirements.txt"
 
-echo "Создаю виртуальное окружение по адресу: '$dirVenv'."
+echo "Создаю виртуальное окружение по адресу:"
+echo "$ $dirVenv"
 quiet python3 -m venv "$dirVenv"
 
 echo "Запускаю виртуальное окружение."
 quiet source "$dirVenv/bin/activate"
 
-echo "Устанавливаю зависимости из файла: '$fileRequirements'."
+echo "Устанавливаю зависимости из файла:"
+echo "$ $fileRequirements"
 quiet python3 -m pip install -r "$fileRequirements"
 
 echo "Запускаю бота."

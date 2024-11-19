@@ -27,4 +27,4 @@ def init(database_file_path: Union[Path, str]) -> None:
     __database = Database(database_file_path)
     logger.trace("Объект базы данных создан.")
     logger.info("Путь к файлу базы данных:")
-    logger.info(f"- '{database_file_path}'")
+    logger.info(f"$ {database_file_path}")

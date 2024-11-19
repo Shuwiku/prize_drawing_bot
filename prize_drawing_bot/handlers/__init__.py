@@ -5,9 +5,9 @@ from typing import Final, List
 
 from aiogram import Router
 
-from . import (_register,
-               _start,
-               __default)
+from . import (__default,
+               _register,
+               _start)
 
 
 __routers: Final[List[Router]] = [_register.router,
