@@ -94,7 +94,7 @@ async def btn_state_register_confirm(callback: CallbackQuery,
 
     Добавляет пользователя в базу данных.
     """
-    logger.debug("Подтверждение регистрации.")  # Логирование
+    logger.debug("Пользователь подтвердил регистрацию.")  # Логирование
     message: Any[InaccessibleMessage, Message] = callback.message
     await state.clear()
     await remove_keyboard(chat_id=callback.from_user.id, 
