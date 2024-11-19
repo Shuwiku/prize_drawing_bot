@@ -8,13 +8,15 @@
 
 from aiogram.filters import Filter
 from aiogram.types import Message
+from aiogram_i18n.context import I18nContext
 
 
 class MessageFromUser(Filter):
     """Фильтр, проверяющий доступ к параметру message.from_user.."""
 
     async def __call__(self,
-                       message: Message
+                       message: Message,
+                       i18n: I18nContext
                        ) -> bool:
         """Проверяет доступ к параметру message.from_user.
 
@@ -24,4 +26,5 @@ class MessageFromUser(Filter):
         """
         if message.from_user:
             return True
+        await message.answer(text=i18n.get("message-not-from-user"))
         return False

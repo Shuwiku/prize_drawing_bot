@@ -19,6 +19,8 @@ btn-register = en-btn-register
 
 default = en-command-default
 
+message-not-from-user = en-message-not-from-user
+
 start = en-start
 
 start-user-not-registered = en-start-user-not-registered
