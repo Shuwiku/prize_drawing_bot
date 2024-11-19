@@ -18,9 +18,6 @@ class Config:
     # Локаль по умолчанию для новых пользователей
     locale_default: str = "ru"
 
-    # Название файла локализации
-    locale_file_name: str = "messages.ftl"
-
     # Путь к файлам локализации
     locales_folder_path: Path = Path("locales/{locale}").resolve()
 
