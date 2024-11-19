@@ -20,4 +20,5 @@ quiet python3 -m pip install -r "$fileRequirements"
 echo "Запускаю бота."
 python3 ./prize_drawing_bot
 
-pause
+echo "Нажмите любую клавишу для выхода..."
+read -n 1 -s
