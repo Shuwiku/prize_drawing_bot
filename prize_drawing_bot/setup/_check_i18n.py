@@ -13,6 +13,8 @@ from fluent.syntax import ast, parse
 from fluent.runtime import FluentLocalization, FluentResourceLoader
 from loguru import logger
 
+from utils import get_locales_list
+
 
 def __get_default_locale_keys(file_path: Union[Path, str]) -> list[str]:
     """Получает все ключи из файла локализации по умолчанию.
@@ -31,21 +33,6 @@ def __get_default_locale_keys(file_path: Union[Path, str]) -> list[str]:
 
     # Сортирует данные. Оставляет только сообщения
     return [i.id.name for i in resources.body if isinstance(i, ast.Message)]
-
-
-def __get_locales_list(locale_path: Union[Path, str]) -> list[str]:
-    """Получает список локалей бота.
-
-    Получает все поддиректории директории с локализацией.
-
-    Args:
-        locale_folders_path (Union[Path, str]): Путь к папке с локализацией.
-
-    Returns:
-        list[str]: Список локалей бота.
-    """
-    return [str(dir_.name) for dir_ in Path(locale_path).parent.iterdir()
-            if dir_.is_dir()]
 
 
 def check_i18n(locale_default: str,
@@ -78,7 +65,13 @@ def check_i18n(locale_default: str,
     # Загрузчик fluent
     loader: Final = FluentResourceLoader(str(locale_path))
 
-    for locale in __get_locales_list(locale_path):
+    # Список локалей бота
+    locales_list: list[str] = get_locales_list()
+
+    # Логирование
+    logger.trace(f"Локали бота: {', '.join(locales_list)}")
+
+    for locale in locales_list:
         i18n: FluentLocalization = \
             FluentLocalization([locale], ["messages.ftl"], loader)
 
