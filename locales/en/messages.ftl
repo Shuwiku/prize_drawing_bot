@@ -17,7 +17,21 @@ btn-register = en-btn-register
 
 ## Ответы бота
 
+action-canceled = en-action-canceled
+
+callback-not-from-user = en-callback-not-from-user
+
 default = en-command-default
+
+language-change = en-language-change
+
+language-change-successfully = en-language-change-successfully
+
+language-change-usage = en-language-change-usage: { $languages }
+
+locale-en = en-locale-en
+
+locale-ru = en-locale-ru
 
 message-not-from-user = en-message-not-from-user
 
