@@ -12,7 +12,7 @@ from aiogram_i18n.context import I18nContext
 
 
 class MessageFromUser(Filter):
-    """Фильтр, проверяющий доступ к параметру message.from_user.."""
+    """Фильтр, проверяющий доступ к параметру message.from_user."""
 
     async def __call__(self,
                        message: Message,
