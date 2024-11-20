@@ -30,6 +30,6 @@ SELECT language FROM user WHERE uid = ?
 """
 
 # Устанавливает локаль пользователя
-set_user_languade: str = """
+set_user_language: str = """
 UPDATE user SET language = ? WHERE uid = ?
 """

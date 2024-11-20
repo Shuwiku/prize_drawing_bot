@@ -117,5 +117,5 @@ class Database:
             uid (int): ID пользователя в телеграм.
             language (str): Новая локаль пользователя.
         """
-        self._execute(query=_queries.set_user_languade, 
-                      parameters=(uid, language))
+        self._execute(query=_queries.set_user_language, 
+                      parameters=(language, uid))
