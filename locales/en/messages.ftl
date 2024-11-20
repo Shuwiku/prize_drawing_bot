@@ -25,6 +25,8 @@ start = en-start
 
 start-user-not-registered = en-start-user-not-registered
 
+user-not-registered = en-user-not-registered
+
 user-registration = en-user-registration
 
 user-registration-already-registered = en-user-registration-already-registered

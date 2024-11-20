@@ -2,3 +2,4 @@
 """Фильтры aiogram для обработчиков бота."""
 
 from ._message_from_user import MessageFromUser
+from ._user_registered import UserRegistered
