@@ -12,7 +12,7 @@ __keyboard: Sequence = [
         InlineKeyboardButton(text=LazyProxy("btn-register"),
                              callback_data="register_confirm"),
         InlineKeyboardButton(text=LazyProxy("btn-cancel"),
-                             callback_data="register_cancel")
+                             callback_data="cancel")
     ]
 ]
 inline_registration_confirm: Final = InlineKeyboardMarkup(
