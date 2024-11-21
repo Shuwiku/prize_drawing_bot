@@ -31,7 +31,9 @@ def get_locales_list() -> list[str]:
     # TODO: Это костыль и он будет исправлен в будущем
     locale_path: Union[Path, str] = Config.locales_folder_path
 
-    __locales_list = [str(dir_.name) 
-                      for dir_ in Path(locale_path).parent.iterdir()
-                      if dir_.is_dir()]
+    __locales_list = [
+        str(dir_.name)
+        for dir_ in Path(locale_path).parent.iterdir()
+        if dir_.is_dir()
+    ]
     return __locales_list

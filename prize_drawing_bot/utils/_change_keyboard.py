@@ -10,10 +10,11 @@ import bot
 
 
 @logger.catch
-async def change_keyboard(chat_id: int,
-                          message_id: int,
-                          reply_markup: Optional[InlineKeyboardMarkup] = None
-                          ) -> None:
+async def change_keyboard(
+    chat_id: int,
+    message_id: int,
+    reply_markup: Optional[InlineKeyboardMarkup] = None
+) -> None:
     """Изменяет inline-клавиатуру в сообщении.
 
     Args:
@@ -22,6 +23,8 @@ async def change_keyboard(chat_id: int,
         reply_markup (Optional[InlineKeyboardMarkup]): Новая клавиатура.
             По умолчанию - None.
     """
-    await bot.get_bot().edit_message_reply_markup(chat_id=chat_id,
-                                                  message_id=message_id,
-                                                  reply_markup=reply_markup)
+    await bot.get_bot().edit_message_reply_markup(
+        chat_id=chat_id,
+        message_id=message_id,
+        reply_markup=reply_markup
+    )

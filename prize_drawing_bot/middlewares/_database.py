@@ -17,11 +17,12 @@ class DatabaseMiddleware(BaseMiddleware):
         super().__init__()
         self.database: Database = get_database()
 
-    async def __call__(self,
-                       handler: Callable,
-                       event: TelegramObject,
-                       data: Dict[str, Any]
-                       ) -> Awaitable:
+    async def __call__(
+        self,
+        handler: Callable,
+        event: TelegramObject,
+        data: Dict[str, Any]
+    ) -> Awaitable:
         """Выдаёт обработчику объект базы данных."""
         data["database"] = self.database
         return await handler(event, data)

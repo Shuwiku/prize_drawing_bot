@@ -40,17 +40,18 @@ def get_dispatcher() -> Dispatcher:
     return __dispatcher
 
 
-def init(bot_token: str,
-         locale_path: Union[Path, str],
-         locale_default: str,
-         parse_mode: str
-         ) -> None:
+def init(
+    bot_token: str,
+    locale_default: str,
+    locales_path: Union[Path, str],
+    parse_mode: str
+) -> None:
     """Создаёт и настраивает объекты бота, диспетчера и интернационализации.
 
     Args:
         bot_token (str): Токен телеграм бота.
-        locale_path (str): Путь к файлам локализации "messages.ftl".
         locale_default (str): Локаль по умолчанию для новых пользователей.
+        locales_path (str): Путь к файлам локализации "messages.ftl".
         parse_mode (str): Режим форматирования текста в сообщениях бота.
     """
     global __bot, __dispatcher
@@ -61,25 +62,31 @@ def init(bot_token: str,
         link_preview_prefer_small_media=True,
         parse_mode=parse_mode
     )
-    __bot = Bot(default=properties,
-                token=bot_token)
+    __bot = Bot(
+        default=properties,
+        token=bot_token
+    )
 
     # Настройка диспетчера
     __dispatcher = Dispatcher()
     __dispatcher.include_router(router=router_handlers)
     # Мидлварь позволяет получать доступ к базе данных напрямую из обработчиков
-    __dispatcher.update.outer_middleware.register(DatabaseMiddleware())
+    __dispatcher.update.outer_middleware.register(
+        middleware=DatabaseMiddleware()
+    )
 
     # Логирование
     logger.trace("Объекты бота и диспетчера созданы и настроены.")
 
     # Настройка интернационализации (i18n)
-    i18n = I18nMiddleware(core=FluentRuntimeCore(path=locale_path),
-                          default_locale=locale_default,
-                          manager=I18nMiddlewareManager())
+    i18n = I18nMiddleware(
+        core=FluentRuntimeCore(path=locales_path),
+        default_locale=locale_default,
+        manager=I18nMiddlewareManager()
+    )
     i18n.setup(dispatcher=__dispatcher)
 
     # Логирование
     logger.trace("Интернационализация настроена.")
     logger.info("Путь к файлам локализации:")
-    logger.info(f"$ {Path(locale_path) / 'messages.ftl'}")
+    logger.info(f"$ {Path(locales_path) / 'messages.ftl'}")

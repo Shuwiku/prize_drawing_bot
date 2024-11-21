@@ -21,10 +21,12 @@ def get_database() -> Database:
     return __database
 
 
-def init(database_file_path: Union[Path, str]) -> None:
+def init(
+    database_file_path: Union[Path, str]
+) -> None:
     """Создаёт объект даны данных, который хранится в закрытой переменной."""
     global __database
-    __database = Database(database_file_path)
+    __database = Database(database_file=database_file_path)
     logger.trace("Объект базы данных создан.")
     logger.info("Путь к файлу базы данных:")
     logger.info(f"$ {database_file_path}")

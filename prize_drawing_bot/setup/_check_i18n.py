@@ -35,9 +35,10 @@ def __get_default_locale_keys(file_path: Union[Path, str]) -> list[str]:
     return [i.id.name for i in resources.body if isinstance(i, ast.Message)]
 
 
-def check_i18n(locale_default: str,
-               locale_path: Union[Path, str],
-               ) -> None:
+def check_i18n(
+    locale_default: str,
+    locale_path: Union[Path, str],
+) -> None:
     """Проверяет файлы интернационализации бота.
 
     Args:

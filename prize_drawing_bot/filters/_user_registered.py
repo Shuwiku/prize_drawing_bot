@@ -12,11 +12,12 @@ from ._message_from_user import MessageFromUser
 class UserRegistered(Filter):
     """Фильтр, проверяющий, есть ли пользователь в базе данных."""
 
-    async def __call__(self, 
-                       message: Message,
-                       database: Database,
-                       i18n: I18nContext
-                       ) -> bool:
+    async def __call__(
+        self,
+        message: Message,
+        database: Database,
+        i18n: I18nContext
+    ) -> bool:
         """Проверяет наличие пользователя в базе данных.
 
         По id пользователя из сообщения определяет его наличие в базе.
@@ -28,7 +29,11 @@ class UserRegistered(Filter):
             bool: Зарегистрирован пользователь или нет.
         """
         from_user: MessageFromUser = MessageFromUser()
-        if await from_user(message, i18n):
+        is_from_user: bool = await from_user(
+            message=message,
+            i18n=i18n
+        )
+        if is_from_user:
             if database.get_user(uid=message.from_user.id):  # type: ignore
                 return True
             await message.answer(text=i18n.get("user-not-registered"))

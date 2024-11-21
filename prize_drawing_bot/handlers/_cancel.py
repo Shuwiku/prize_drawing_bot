@@ -16,27 +16,33 @@ from utils import change_keyboard
 router: Final[Router] = Router(name=__name__)
 
 
-@router.message(Command("cancel"),
-                MessageFromUser())
-async def cmd_cancel(message: Message,
-                     i18n: I18nContext,
-                     state: FSMContext
-                     ) -> None:
+@router.message(
+    Command("cancel"),
+    MessageFromUser()
+)
+async def command_cancel(
+    message: Message,
+    i18n: I18nContext,
+    state: FSMContext
+) -> None:
     """Останавливает машину состояний."""
     if await state.get_state():  # Машина состояний запущена
         await state.clear()
-        await change_keyboard(chat_id=message.from_user.id,  # type: ignore
-                              message_id=message.message_id - 1,
-                              reply_markup=None)
+        await change_keyboard(
+            chat_id=message.from_user.id,  # type: ignore
+            message_id=message.message_id - 1,
+            reply_markup=None
+        )
         await message.answer(text=i18n.get("action-canceled"))
 
 
 @router.callback_query(F.data == "cancel")
 @router.message(CallbackMessageFromUser())
-async def cal_cancel(callback: CallbackQuery,
-                     i18n: I18nContext,
-                     state: FSMContext
-                     ) -> None:
+async def callback_cancel(
+    callback: CallbackQuery,
+    i18n: I18nContext,
+    state: FSMContext
+) -> None:
     """Останавливает машину состояний.
 
     Останавливает машину состояний и убирает inline-клавиатуру.

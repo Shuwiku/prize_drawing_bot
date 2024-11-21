@@ -8,11 +8,12 @@ from typing import Union
 from loguru import logger
 
 
-def setup_logging(log_format: str,
-                  log_level_file: str,
-                  log_level_std: str,
-                  log_files_path: Union[Path, str]
-                  ) -> None:
+def setup_logging(
+    log_format: str,
+    log_level_file: str,
+    log_level_std: str,
+    log_files_path: Union[Path, str]
+) -> None:
     """Настраивает логирование бота.
 
     Args:
@@ -22,12 +23,16 @@ def setup_logging(log_format: str,
         log_files_path (Union[Path, str]): Путь к файлам логов.
     """
     logger.remove()  # Убирает настройки по умолчанию
-    logger.add(sink=sys.stderr,  # Вывод логов в терминал
-               level=log_level_std,
-               format=log_format)
-    logger.add(sink=log_files_path,  # Запись логов в файл
-               level=log_level_file,
-               format=log_format)
+    logger.add(  # Вывод логов в терминал
+        sink=sys.stderr,
+        level=log_level_std,
+        format=log_format
+    )
+    logger.add(  # Запись логов в файл
+        sink=log_files_path,
+        level=log_level_file,
+        format=log_format
+    )
     logger.trace("Логирование настроено.")  # Логирование
     logger.info("Путь к файлам журнала:")  # Логирование
     logger.info(f"$ {log_files_path}")  # Логирование

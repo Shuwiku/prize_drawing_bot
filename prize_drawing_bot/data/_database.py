@@ -14,9 +14,12 @@ from . import _queries
 class Database:
     """Класс базы данных."""
 
-    def __init__(self, 
-                 database_file: Union[Path, str]
-                 ) -> None:
+    _connection: Connection
+
+    def __init__(
+        self,
+        database_file: Union[Path, str]
+    ) -> None:
         """Инициализация объекта базы данных.
 
         Создаёт сессию с указанной базой данных, настраивает её и
@@ -25,7 +28,7 @@ class Database:
         Args:
             database_file (str): Путь к файлу базы данных.
         """
-        self._connection: Connection = sqlite3.connect(database=database_file)
+        self._connection = sqlite3.connect(database=database_file)
         self.__create_tables()
         self.__create_indexes()
 
@@ -39,10 +42,11 @@ class Database:
         self._execute(query=_queries.create_table_user)
         logger.trace("Таблицы базы данных созданы.")  # Логирование
 
-    def _execute(self,
-                 query: str,
-                 parameters: Optional[tuple] = None
-                 ) -> Any:
+    def _execute(
+        self,
+        query: str,
+        parameters: Optional[tuple] = None
+    ) -> Any:
         """Выполняет запросы к базе данных.
 
         Используется для оптимизации кода, чтобы не засорять его.
@@ -57,29 +61,37 @@ class Database:
         """
         with self._connection:
             cursor: Cursor = self._connection.cursor()
+
             if parameters:
-                cursor.execute(query, 
-                               parameters)
+                cursor.execute(
+                    query,
+                    parameters
+                )
             else:
                 cursor.execute(query)
+
             result: Any = cursor.fetchone()
             cursor.close()
-        return result
+            return result
 
-    def add_user(self,
-                 uid: int
-                 ) -> None:
+    def add_user(
+        self,
+        uid: int
+    ) -> None:
         """Добавляет пользователя в базу данных.
 
         Args:
             uid (int): ID пользователя в телеграм.
         """
-        self._execute(query=_queries.add_user, 
-                      parameters=(uid,))
+        self._execute(
+            query=_queries.add_user,
+            parameters=(uid,)
+        )
 
-    def get_user(self,
-                 uid: int
-                 ) -> Any:
+    def get_user(
+        self,
+        uid: int
+    ) -> Any:
         """Получает данные пользователя из базы данных.
 
         Args:
@@ -88,12 +100,15 @@ class Database:
         Returns:
             Any: Данные пользователя.
         """
-        return self._execute(query=_queries.get_user, 
-                             parameters=(uid,))
+        return self._execute(
+            query=_queries.get_user,
+            parameters=(uid,)
+        )
 
-    def get_user_language(self,
-                          uid: int
-                          ) -> Optional[str]:
+    def get_user_language(
+        self,
+        uid: int
+    ) -> Optional[str]:
         """Получает локаль пользователя.
 
         Args:
@@ -103,19 +118,23 @@ class Database:
             str: Локаль пользователя.
         """
         result: Optional[tuple] = self._execute(
-            query=_queries.get_user_language, 
-            parameters=(uid,))
+            query=_queries.get_user_language,
+            parameters=(uid,)
+        )
         return result[0] if result else None
 
-    def set_user_language(self,
-                          uid: int,
-                          language: str
-                          ) -> Any:
+    def set_user_language(
+        self,
+        uid: int,
+        language: str
+    ) -> Any:
         """Устанавливает локаль пользователя.
 
         Args:
             uid (int): ID пользователя в телеграм.
             language (str): Новая локаль пользователя.
         """
-        self._execute(query=_queries.set_user_language, 
-                      parameters=(language, uid))
+        self._execute(
+            query=_queries.set_user_language,
+            parameters=(language, uid)
+        )

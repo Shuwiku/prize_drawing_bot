@@ -25,5 +25,10 @@ load_config(CONFIG_FILE)  # Чтение файла конфигурации
 setup()  # Настройка бота
 logger.info("Запуск диспетчера.")  # Логирование
 
-asyncio.run(bot.get_dispatcher().start_polling(bot.get_bot(),  # Запуск бота
-                                               skip_updates=True))
+# Запуск бота
+asyncio.run(
+    bot.get_dispatcher().start_polling(
+        bot.get_bot(),
+        skip_updates=True
+    )
+)

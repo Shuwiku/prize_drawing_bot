@@ -9,11 +9,16 @@ from aiogram_i18n.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 __keyboard: Sequence = [
     [
-        InlineKeyboardButton(text=LazyProxy("btn-register"),
-                             callback_data="register_confirm"),
-        InlineKeyboardButton(text=LazyProxy("btn-cancel"),
-                             callback_data="cancel")
+        InlineKeyboardButton(
+            text=LazyProxy("btn-register"),
+            callback_data="register_confirm"
+        ),
+        InlineKeyboardButton(
+            text=LazyProxy("btn-cancel"),
+            callback_data="cancel"
+        )
     ]
 ]
 inline_registration_confirm: Final = InlineKeyboardMarkup(
-    inline_keyboard=__keyboard)
+    inline_keyboard=__keyboard
+)

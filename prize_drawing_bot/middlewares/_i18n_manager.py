@@ -12,10 +12,11 @@ from data import Database
 class I18nMiddlewareManager(BaseManager):
     """Менеджер интернационализации на базе класса BaseManager."""
 
-    async def get_locale(self,
-                         event_from_user: User,
-                         database: Database
-                         ) -> str:
+    async def get_locale(
+        self,
+        event_from_user: User,
+        database: Database
+    ) -> str:
         """Получает локаль пользователя.
 
         Args:
@@ -28,16 +29,18 @@ class I18nMiddlewareManager(BaseManager):
                 Если пользователя нет - вернёт локаль по умолчанию.
         """
         language: Optional[str] = database.get_user_language(
-            uid=event_from_user.id)
+            uid=event_from_user.id
+        )
         if language:
             return language
         return str(self.default_locale)
 
-    async def set_locale(self,
-                         locale: str,
-                         event_from_user: User,
-                         database: Database
-                         ) -> None:
+    async def set_locale(
+        self,
+        locale: str,
+        event_from_user: User,
+        database: Database
+    ) -> None:
         """Устанавливает локаль пользователя.
 
         Args:
@@ -46,5 +49,7 @@ class I18nMiddlewareManager(BaseManager):
             database (Optional[Database]): Объект базы данных.
                 Берётся из мидлваря взаимодействия с базой данных.
         """
-        database.set_user_language(uid=event_from_user.id,
-                                   language=locale)
+        database.set_user_language(
+            uid=event_from_user.id,
+            language=locale
+        )

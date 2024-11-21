@@ -14,10 +14,11 @@ from aiogram_i18n.context import I18nContext
 class MessageFromUser(Filter):
     """Фильтр, проверяющий доступ к параметру message.from_user."""
 
-    async def __call__(self,
-                       message: Message,
-                       i18n: I18nContext
-                       ) -> bool:
+    async def __call__(
+        self,
+        message: Message,
+        i18n: I18nContext
+    ) -> bool:
         """Проверяет доступ к параметру message.from_user.
 
         Returns:

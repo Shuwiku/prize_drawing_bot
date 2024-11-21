@@ -14,11 +14,15 @@ from filters import MessageFromUser
 router: Router = Router(name=__name__)
 
 
-@router.message(CommandStart(),
-                MessageFromUser())
-async def cmd_start(message: Message,
-                    database: Database,
-                    i18n: I18nContext) -> None:
+@router.message(
+    CommandStart(),
+    MessageFromUser()
+)
+async def command_start(
+    message: Message,
+    database: Database,
+    i18n: I18nContext
+) -> None:
     """Выводит краткую информацию о боте."""
     logger.debug("Обработка команды \"start\".")
     await message.answer(text=i18n.get("start"))

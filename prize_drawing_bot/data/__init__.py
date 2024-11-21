@@ -5,4 +5,7 @@
 """
 
 from ._database import Database
-from ._init import get_database, init
+from ._init import (
+    get_database,
+    init
+)
