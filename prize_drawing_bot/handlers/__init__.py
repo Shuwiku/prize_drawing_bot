@@ -13,6 +13,7 @@ from aiogram import Router
 _handlers: dict = {}
 _required_handlers = [
     "handlers._cancel",
+    "handlers._language",
     "handlers._register",
     "handlers._start"
 ]
