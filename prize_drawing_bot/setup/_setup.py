@@ -38,7 +38,7 @@ def setup() -> None:
         locales_path=config.locales_folder_path,
         locale_default=config.locale_default,
         parse_mode=config.parse_mode
-        )
+    )
 
     # Проверка файлов локализации
     check_i18n(

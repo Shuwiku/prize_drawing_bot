@@ -5,6 +5,8 @@
 типа не Message, а InaccessibleMessage, например, если сообщение было удалено.
 """
 
+from typing import Any
+
 from aiogram.filters import Filter
 from aiogram.types import Message, CallbackQuery
 from aiogram_i18n.context import I18nContext
@@ -24,7 +26,11 @@ class CallbackMessageFromUser(Filter):
             bool: True, если есть доступ к параметру callback.message.
                 В противном случае - False.
         """
-        if type(callback.message) is Message:
+        try:
+            message: Any = callback.message
+        except AttributeError:
+            return False
+        if type(message) is Message:
             return True
         await callback.answer(text=i18n.get("callback-not-from-user"))
         return False
