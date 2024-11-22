@@ -12,7 +12,8 @@ from ._database import Database
 __database: Database
 
 
-def get_database() -> Database:
+def get_database(
+) -> Database:
     """Возвращает объект базы данных.
 
     Returns:

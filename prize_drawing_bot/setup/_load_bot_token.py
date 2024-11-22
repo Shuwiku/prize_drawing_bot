@@ -9,7 +9,8 @@ from typing import Optional
 from loguru import logger
 
 
-def load_bot_token() -> str:
+def load_bot_token(
+) -> str:
     """Загружает токен бота из переменных окружения.
 
     Returns:

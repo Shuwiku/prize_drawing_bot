@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Docstring."""
+"""Клавиатуры aiogram бота."""
 
 from . import inline

@@ -9,6 +9,7 @@
 from aiogram.filters import Filter
 from aiogram.types import Message
 from aiogram_i18n.context import I18nContext
+from loguru import logger
 
 
 class MessageFromUser(Filter):
@@ -25,6 +26,8 @@ class MessageFromUser(Filter):
             bool: True, если есть доступ к параметру message.from_user.
                 В противном случае - False.
         """
+        logger.debug("Вызван фильтр MessageFromUser")
+
         if message.from_user:
             return True
         await message.answer(text=i18n.get("message-not-from-user"))

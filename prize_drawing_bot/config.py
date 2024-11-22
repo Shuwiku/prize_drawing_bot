@@ -8,6 +8,18 @@ from pathlib import Path
 from typing import Any
 
 
+__config: "Config"
+__config_data: dict
+# Переменные конфигурации, которые являются путями.
+# Этот список нужен для того, чтобы понять, к которым переменным надо
+# применять Path(data).resolve(). Я просто не придумал ничего лучше.
+__paths: list[str] = [
+    "database_file_path",
+    "locales_folder_path",
+    "log_files_path"
+]
+
+
 @dataclass
 class Config:
     """Конфигурация бота."""
@@ -38,19 +50,9 @@ class Config:
     parse_mode: str = "HTML"
 
 
-__config: Config
-__config_data: dict
-# Переменные конфигурации, которые являются путями.
-# Этот список нужен для того, чтобы понять, к которым переменным надо
-# применять Path(data).resolve(). Я просто не придумал ничего лучше.
-__paths: list[str] = [
-    "database_file_path",
-    "locales_folder_path",
-    "log_files_path"
-]
-
-
-def _set_config_data(field: str) -> None:
+def _set_config_data(
+    field: str
+) -> None:
     """Настраивает поле конфигурации.
 
     Пытается получить данные из загруженного файла конфигурации. В случае
@@ -73,7 +75,8 @@ def _set_config_data(field: str) -> None:
     setattr(__config, field, str(data))
 
 
-def get_config() -> Config:
+def get_config(
+) -> Config:
     """Возвращает объект конфигурации.
 
     Returns:
@@ -87,7 +90,9 @@ def get_config() -> Config:
         sys.exit()
 
 
-def load_config(file_name: str) -> None:
+def load_config(
+    file_name: str
+) -> None:
     """Загружает данные из файла конфигурации.
 
     Args:

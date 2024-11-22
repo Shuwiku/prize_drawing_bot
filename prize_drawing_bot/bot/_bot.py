@@ -22,7 +22,8 @@ __bot: Bot
 __dispatcher: Dispatcher
 
 
-def get_bot() -> Bot:
+def get_bot(
+) -> Bot:
     """Возвращает объект бота.
 
     Returns:
@@ -31,7 +32,8 @@ def get_bot() -> Bot:
     return __bot
 
 
-def get_dispatcher() -> Dispatcher:
+def get_dispatcher(
+) -> Dispatcher:
     """Возвращает объект диспетчера.
 
     Returns:

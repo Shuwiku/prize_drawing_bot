@@ -12,7 +12,9 @@ from data import Database, get_database
 class DatabaseMiddleware(BaseMiddleware):
     """Мидлварь для взаимодействия с базой данных."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self
+    ) -> None:
         """Инициализация мидлваря."""
         super().__init__()
         self.database: Database = get_database()

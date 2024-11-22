@@ -4,6 +4,7 @@
 from aiogram.filters import Filter
 from aiogram.types import Message
 from aiogram_i18n.context import I18nContext
+from loguru import logger
 
 from data import Database
 from ._message_from_user import MessageFromUser
@@ -28,6 +29,8 @@ class UserRegistered(Filter):
         Returns:
             bool: Зарегистрирован пользователь или нет.
         """
+        logger.debug("Вызван фильтр UserRegistered")
+
         from_user: MessageFromUser = MessageFromUser()
         is_from_user: bool = await from_user(
             message=message,

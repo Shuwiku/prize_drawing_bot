@@ -10,7 +10,8 @@ from config import Config
 __locales_list: list[str]
 
 
-def get_locales_list() -> list[str]:
+def get_locales_list(
+) -> list[str]:
     """Получает список локалей бота.
 
     Получает все поддиректории директории с локализацией.

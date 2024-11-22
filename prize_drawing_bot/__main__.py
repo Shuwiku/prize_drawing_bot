@@ -21,7 +21,7 @@ from setup import setup
 
 CONFIG_FILE: str = "config.json"
 
-load_config(CONFIG_FILE)  # Чтение файла конфигурации
+load_config(file_name=CONFIG_FILE)  # Чтение файла конфигурации
 setup()  # Настройка бота
 logger.info("Запуск диспетчера.")  # Логирование
 

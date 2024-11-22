@@ -48,7 +48,10 @@ async def callback_language_change(
     i18n: I18nContext,
     state: FSMContext
 ) -> None:
-    """_summary_."""
+    """Пользователь выбрал язык.
+
+    Устанавливает новую локаль и отключает машину состояний.
+    """
     logger.debug("Пользователь изменил язык.")
 
     message: Message = callback.message  # type: ignore
@@ -71,14 +74,18 @@ async def state_language_default(
     message: Message,
     i18n: I18nContext
 ) -> None:
-    """_summary_."""
+    """Обработчик по умолчанию.
+
+    Вызывается в случае, если пользователь по какой-либо причине не нажал на
+    кнопку из inline-клавиатуры.
+    """
     logger.debug("Обработчик смены языка по умолчанию.")  # Логирование
 
     await delete_message(
         chat_id=message.from_user.id,  # type: ignore
         message_id=message.message_id - 1
     )
-    await message.answer(text=i18n.get("user-registration-confirm-default"))
+    await message.answer(text=i18n.get("language-change-default"))
 
     # Повторно отправляет сообщение с подтверждением регистрации
     # По сути, то же самое что и /language

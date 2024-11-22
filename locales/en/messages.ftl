@@ -25,6 +25,8 @@ default = en-command-default
 
 language-change = en-language-change
 
+language-change-default = en-language-change-default
+
 language-change-successfully = en-language-change-successfully
 
 language-change-usage = en-language-change-usage: { $languages }

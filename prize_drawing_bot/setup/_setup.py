@@ -12,7 +12,8 @@ from ._load_bot_token import load_bot_token
 from ._setup_logging import setup_logging
 
 
-def setup() -> None:
+def setup(
+) -> None:
     """Настраивает бота перед его запуском.
 
     Args:

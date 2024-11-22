@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Класс базы данных."""
+"""Класс базы данных.
+
+Реализует подключение к базе данных, а так же методы для работы с ней.
+"""
 
 import sqlite3
 from pathlib import Path
@@ -32,12 +35,16 @@ class Database:
         self.__create_tables()
         self.__create_indexes()
 
-    def __create_indexes(self) -> None:
+    def __create_indexes(
+        self
+    ) -> None:
         """Создаёт индексы базы данных."""
         self._execute(query=_queries.create_index_user_uid)
         logger.trace("Индексы базы данных созданы.")  # Логирование
 
-    def __create_tables(self) -> None:
+    def __create_tables(
+        self
+    ) -> None:
         """Создаёт таблицы базы данных."""
         self._execute(query=_queries.create_table_user)
         logger.trace("Таблицы базы данных созданы.")  # Логирование

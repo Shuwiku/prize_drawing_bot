@@ -16,7 +16,9 @@ from loguru import logger
 from utils import get_locales_list
 
 
-def __get_default_locale_keys(file_path: Union[Path, str]) -> list[str]:
+def __get_default_locale_keys(
+    file_path: Union[Path, str]
+) -> list[str]:
     """Получает все ключи из файла локализации по умолчанию.
 
     Args:
@@ -29,7 +31,7 @@ def __get_default_locale_keys(file_path: Union[Path, str]) -> list[str]:
         locale_data: str = f.read()
 
     # Получает данные из файла
-    resources: ast.Resource = parse(locale_data)
+    resources: ast.Resource = parse(source=locale_data)
 
     # Сортирует данные. Оставляет только сообщения
     return [i.id.name for i in resources.body if isinstance(i, ast.Message)]
@@ -61,10 +63,12 @@ def check_i18n(
         sys.exit()
 
     # Ключи из файла локализации по умолчанию
-    locale_keys: list[str] = __get_default_locale_keys(locale_default_file)
+    locale_keys: list[str] = __get_default_locale_keys(
+        file_path=locale_default_file
+    )
 
     # Загрузчик fluent
-    loader: Final = FluentResourceLoader(str(locale_path))
+    loader: Final = FluentResourceLoader(roots=str(locale_path))
 
     # Список локалей бота
     locales_list: list[str] = get_locales_list()
@@ -73,8 +77,12 @@ def check_i18n(
     logger.trace(f"Локали бота: {', '.join(locales_list)}")
 
     for locale in locales_list:
-        i18n: FluentLocalization = \
-            FluentLocalization([locale], ["messages.ftl"], loader)
+
+        i18n: FluentLocalization = FluentLocalization(
+            locales=[locale],
+            resource_ids=["messages.ftl"],
+            resource_loader=loader
+        )
 
         for key in locale_keys:
 
