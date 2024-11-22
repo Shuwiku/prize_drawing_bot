@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Docstring."""
+"""Машина состояний смены языка пользователя."""
 
 from aiogram.fsm.state import State, StatesGroup
 
 
 class Language(StatesGroup):
-    """Docstring."""
+    """Машина состояний смены языка пользователя."""
 
     confirm: State = State()

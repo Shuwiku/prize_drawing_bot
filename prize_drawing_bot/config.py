@@ -22,7 +22,7 @@ __paths: list[str] = [
 
 @dataclass
 class Config:
-    """Конфигурация бота."""
+    """Конфигурация бота по умолчанию."""
 
     # Путь к файлу базы данных
     database_file_path: Path = Path("database.sqlite3").resolve()
@@ -63,13 +63,17 @@ def _set_config_data(
     """
     data: Any = __config_data.get(field)
 
+    # Если в файле конфигурации не указан параметр - использует
+    # значение по умолчанию
     if not data or data is None:
         text: str = f"Не удалось получить значение из поля: \"{field}\"." \
             " Для этого поля будут применены настройки по умолчанию."
         print(text)  # "Логирование"
         data = getattr(Config, field)
 
-    if field in __paths:
+    # Если параметр указан (см. проверку выше) и параметр находится в списке
+    # параметров-путей - применяет Path(data).resolve()
+    elif field in __paths:
         data = Path(data).resolve()
 
     setattr(__config, field, str(data))
@@ -100,6 +104,7 @@ def load_config(
     """
     global __config, __config_data
 
+    # Абсолютный путь к файлу конфигурации
     file_path: Path = Path(file_name).resolve()
     print(f"Путь к файлу конфигурации: \n$ {file_path}")  # "Логирование"
 

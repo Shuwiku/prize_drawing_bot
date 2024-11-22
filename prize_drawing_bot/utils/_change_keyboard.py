@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Функция, которая убирает клавиатуру из сообщения по id."""
+"""Функция, которая изменяет inline-клавиатуру в указанном сообщении."""
 
 from typing import Optional
 
@@ -20,7 +20,7 @@ async def change_keyboard(
     Args:
         chat_id (int): id чата (пользователя).
         message_id (int): id сообщения с клавиатурой.
-        reply_markup (Optional[InlineKeyboardMarkup]): Новая клавиатура.
+        reply_markup (Optional[InlineKeyboardMarkup]): Новая inline-клавиатура.
             По умолчанию - None.
     """
     await bot.get_bot().edit_message_reply_markup(
