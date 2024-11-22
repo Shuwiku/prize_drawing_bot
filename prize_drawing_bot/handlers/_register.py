@@ -19,7 +19,7 @@ router: Router = Router(name=__name__)
 
 
 @router.message(
-    Command("register"),
+    Command(commands=["register"]),
     MessageFromUser(),
     StateFilter(None)
 )
@@ -29,8 +29,8 @@ async def command_register(
     i18n: I18nContext,
     state: FSMContext
 ) -> None:
-    """Запрашивает подтверждение регистрации у пользователя"""
-    logger.debug("Обработка команды \"register\".")  # Логирование
+    """Запрашивает подтверждение регистрации у пользователя."""
+    logger.debug("Обработчик 'command_register'.")  # Логирование
 
     # Если пользователя нет в базе данных - настраиваем машину состояний и
     # запрашиваем у него подтверждение регистрации
@@ -45,10 +45,10 @@ async def command_register(
     await message.answer(text=i18n.get("user-registration-already-registered"))
 
 
-@router.callback_query(F.data == "register_confirm")
-@router.message(
-    CallbackHaveMessage(),
-    StateFilter(Register.confirm)
+@router.callback_query(
+    F.data == "register_confirm",
+    StateFilter(Register.confirm),
+    CallbackHaveMessage()
 )
 async def callback_state_register_confirm(
     callback: CallbackQuery,
@@ -60,17 +60,23 @@ async def callback_state_register_confirm(
 
     Добавляет пользователя в базу данных и отключает машину состояний.
     """
-    logger.debug("Пользователь подтвердил регистрацию.")  # Логирование
+    # Логирование
+    logger.debug("Обработчик 'callback_state_register_confirm'.")
 
     message: Message = callback.message  # type: ignore
 
-    await state.clear()
+    await state.clear()  # Отключает машину состояний
+
+    # Убирает inline-клавиатуру из сообщения бота
     await change_keyboard(
         chat_id=callback.from_user.id,
         message_id=message.message_id,
         reply_markup=None
     )
+
+    # Добавляет пользователя в базу данных бота
     database.add_user(uid=callback.from_user.id)
+
     await message.answer(
         text=i18n.get("user-registration-confirm-accept"),
         reply_markup=None
@@ -80,8 +86,8 @@ async def callback_state_register_confirm(
 
 
 @router.message(
-    MessageFromUser(),
-    StateFilter(Register.confirm)
+    StateFilter(Register.confirm),
+    MessageFromUser()
 )
 async def state_register_default(
     message: Message,
@@ -92,16 +98,18 @@ async def state_register_default(
     Вызывается в случае, если пользователь по какой-либо причине не нажал на
     кнопку из inline-клавиатуры.
     """
-    logger.debug("Обработчик регистрации по умолчанию.")  # Логирование
+    logger.debug("Обработчик 'state_register_default'.")  # Логирование
 
+    # Удаляет сообщение с inline-клавиатурой
     await delete_message(
         chat_id=message.from_user.id,  # type: ignore
         message_id=message.message_id - 1
     )
+
     await message.answer(text=i18n.get("user-registration-confirm-default"))
 
     # Повторно отправляет сообщение с подтверждением регистрации
-    # По сути, то же самое что и /register
+    # По сути, то же самое что и вызов обработчика 'command_register'
     await message.answer(
         text=i18n.get("user-registration"),
         reply_markup=inline_registration_confirm

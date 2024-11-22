@@ -2,7 +2,7 @@
 """Обработчик команды начала диалога с ботом."""
 
 from aiogram import Router
-from aiogram.filters import CommandStart
+from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram_i18n import I18nContext
 from loguru import logger
@@ -15,7 +15,7 @@ router: Router = Router(name=__name__)
 
 
 @router.message(
-    CommandStart(),
+    Command(commands=["start"]),
     MessageFromUser()
 )
 async def command_start(
@@ -24,8 +24,10 @@ async def command_start(
     i18n: I18nContext
 ) -> None:
     """Выводит краткую информацию о боте."""
-    logger.debug("Обработка команды \"start\".")
+    logger.debug("Обработчик 'command_start'.")
+
     await message.answer(text=i18n.get("start"))
-    # Пользователя не в базе данных
+
+    # Пользователя нет в базе данных
     if not database.get_user(uid=message.from_user.id):  # type: ignore
         await message.answer(text=i18n.get("start-user-not-registered"))
