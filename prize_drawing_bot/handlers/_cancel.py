@@ -9,7 +9,7 @@ from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 from aiogram_i18n.context import I18nContext
 
-from filters import CallbackMessageFromUser, MessageFromUser
+from filters import CallbackHaveMessage, MessageFromUser
 from utils import change_keyboard
 
 
@@ -37,7 +37,7 @@ async def command_cancel(
 
 
 @router.callback_query(F.data == "cancel")
-@router.message(CallbackMessageFromUser())
+@router.message(CallbackHaveMessage())
 async def callback_cancel(
     callback: CallbackQuery,
     i18n: I18nContext,

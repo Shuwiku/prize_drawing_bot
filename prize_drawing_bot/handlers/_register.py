@@ -9,7 +9,7 @@ from aiogram_i18n import I18nContext
 from loguru import logger
 
 from data import Database
-from filters import CallbackMessageFromUser, MessageFromUser
+from filters import CallbackHaveMessage, MessageFromUser
 from keyboards.inline import inline_registration_confirm
 from states import Register
 from utils import change_keyboard
@@ -47,7 +47,7 @@ async def command_register(
 
 @router.callback_query(F.data == "register_confirm")
 @router.message(
-    CallbackMessageFromUser(),
+    CallbackHaveMessage(),
     StateFilter(Register.confirm)
 )
 async def callback_state_register_confirm(
