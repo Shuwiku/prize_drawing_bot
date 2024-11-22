@@ -12,7 +12,7 @@ from filters import CallbackHaveMessage, UserRegistered, MessageFromUser
 from keyboards.inline import inline_languages_list
 from states import Language
 
-from utils import change_keyboard
+from utils import change_keyboard, delete_message
 
 
 router: Router = Router(name=__name__)
@@ -74,10 +74,9 @@ async def state_language_default(
     """_summary_."""
     logger.debug("Обработчик смены языка по умолчанию.")  # Логирование
 
-    await change_keyboard(
+    await delete_message(
         chat_id=message.from_user.id,  # type: ignore
-        message_id=message.message_id - 1,
-        reply_markup=None
+        message_id=message.message_id - 1
     )
     await message.answer(text=i18n.get("user-registration-confirm-default"))
 
