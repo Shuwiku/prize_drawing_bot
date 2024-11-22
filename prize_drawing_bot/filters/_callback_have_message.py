@@ -26,10 +26,10 @@ class CallbackHaveMessage(Filter):
             bool: True, если есть доступ к параметру callback.message.
                 В противном случае - False.
         """
-        logger.debug("Вызван фильтр CallbackHaveMessage")
+        logger.debug("Фильтр 'CallbackHaveMessage'.")  # Логирование
 
         # Я не знаю почему и как, но сюда попадают события, которые не должны
-        # попадать. Например, если просто ввести команду "/language", то
+        # попадать. Например, если просто ввести команду "/start", то
         # каким-то образом вызовется этот фильтр, хотя, вроде как, не должен
         if type(callback) is not CallbackQuery:
             return False

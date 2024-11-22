@@ -29,7 +29,7 @@ class UserRegistered(Filter):
         Returns:
             bool: Зарегистрирован пользователь или нет.
         """
-        logger.debug("Вызван фильтр UserRegistered")
+        logger.debug("Фильтр 'UserRegistered'.")  # Логирование
 
         from_user: MessageFromUser = MessageFromUser()
         is_from_user: bool = await from_user(
