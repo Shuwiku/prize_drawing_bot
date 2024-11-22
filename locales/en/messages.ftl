@@ -5,50 +5,59 @@
 
 ## Термины
 
--bot-name = Prize Drawing Bot
+-bot-name = 🤖 Prize Drawing Bot
 
 
 ## Кнопки бота
 
-btn-cancel = en-btn-cancel
-btn-menu = en-btn-menu
-btn-register = en-btn-register
+btn-cancel = ❌ Cancel
+btn-menu = 📃 Menu
+btn-register = ✅ Register
 
 
 ## Ответы бота
 
-action-canceled = en-action-canceled
+action-canceled = ❌ Action cancelled.
 
-callback-not-from-user = en-callback-not-from-user
+callback-not-from-user = ❌ Failed to process the callback!
+    The message was deleted or the callback was not sent by the user.
 
-default = en-command-default
+default = ❌ The command is not recognized!
+    Use the /menu command to display the keyboard with the bot's main menu.
 
-language-change = en-language-change
+language-change = 📃 Select your language from the list below:
 
-language-change-default = en-language-change-default
+language-change-default = ❌ Please use the buttons attached to the message. You can also cancel the action with /cancel.
 
-language-change-successfully = en-language-change-successfully
+language-change-successfully = ✅ Language has been successfully changed!
 
-language-change-usage = en-language-change-usage: { $languages }
+language-change-usage = Usage: /language <i>language</i>.
+    List of available languages: { $languages }.
 
-locale-en = en-locale-en
+locale-en =  🇺🇸 English
 
-locale-ru = en-locale-ru
+locale-ru = 🇷🇺 Русский
 
-message-not-from-user = en-message-not-from-user
+message-not-from-user = ❌ Failed to process the message!
+    The message did not come from the user.
 
-start = en-start
+start = <b>{-bot-name}</b> is a simple but working bot for conducting prize draws.
 
-start-user-not-registered = en-start-user-not-registered
+    The bot can launch, conduct draws and select a winner using a system of referral links, and also has protection against bots in the form of a captcha.
 
-user-not-registered = en-user-not-registered
+start-user-not-registered = ✅ By default, the bot does not store any information about you, so access to most functions will be limited. Use the /register command to be able to use the bot's services.
 
-user-registration = en-user-registration
+user-not-registered = ❌ Access for registered users only.
+    Use the /register command to register with the bot.
 
-user-registration-already-registered = en-user-registration-already-registered
+user-registration = ⚠️ After confirmation of registration, the bot will save your Telegram ID to the database. Please note that the profile ID cannot be changed, so be careful when using any bots.
 
-user-registration-confirm-accept = en-user-registration-confirm-accept
+    ✅ At any time you can submit a request to delete your data from the bot, after which your profile will be deleted from the current database <b>but not from backup copies</b>! Deleting your profile will also cancel your participation in all registered sweepstakes.
 
-user-registration-confirm-decline = en-user-registration-confirm-decline
+user-registration-already-registered = ✅ You are already registered!
 
-user-registration-confirm-default = en-user-registration-confirm-default
+user-registration-confirm-accept = ✅ You have been successfully registered!
+
+user-registration-confirm-decline = ❌ You have canceled your registration.
+
+user-registration-confirm-default = ❌ Please use the buttons attached to the confirmation message. You can also cancel the action with /cancel.
