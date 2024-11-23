@@ -14,7 +14,7 @@ from aiogram_i18n import I18nMiddleware
 from aiogram_i18n.cores.fluent_runtime_core import FluentRuntimeCore
 from loguru import logger
 
-from handlers import router_handlers
+from handlers import get_router_handlers
 from middlewares import DatabaseMiddleware, I18nMiddlewareManager
 
 
@@ -71,7 +71,7 @@ def init(
 
     # Настройка диспетчера
     __dispatcher = Dispatcher()
-    __dispatcher.include_router(router=router_handlers)
+    __dispatcher.include_router(router=get_router_handlers())
     # Мидлварь позволяет получать доступ к базе данных напрямую из обработчиков
     __dispatcher.update.outer_middleware.register(
         middleware=DatabaseMiddleware()

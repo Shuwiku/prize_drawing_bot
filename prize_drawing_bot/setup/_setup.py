@@ -6,6 +6,7 @@ import os
 
 import bot
 import data
+import handlers
 from config import Config, get_config
 from ._check_i18n import check_i18n
 from ._load_bot_token import load_bot_token
@@ -31,6 +32,13 @@ def setup(
 
     # Настройка базы данных
     data.init(database_file_path=config.database_file_path)
+
+    # Настройка обработчиков бота
+    handlers.init(
+        handlers=config.handlers,
+        handlers_filename_pattern=config._bot_handlers_filename_pattern,
+        handlers_path=config._bot_handlers_path
+    )
 
     # Получение токена бота и настройка бота, диспетчера и интернационализции
     bot_token: str = load_bot_token()

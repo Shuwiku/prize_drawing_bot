@@ -1,5 +1,11 @@
 {
     "database_file_path": "database/database.sqlite3",
+    "handlers": [
+        "cancel",
+        "language",
+        "register",
+        "start"
+    ],
     "locale_default": "ru",
     "locales_folder_path": "locales/{locale}",
     "log_format": "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <level>{message}</level>",

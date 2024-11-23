@@ -3,9 +3,9 @@
 
 import json
 import sys
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, field
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 
 __config: "Config"
@@ -24,8 +24,27 @@ __paths: list[str] = [
 class Config:
     """Конфигурация бота по умолчанию."""
 
+    # Путь к папке скриптов бота
+    _bot_path: Path = Path("prize_drawing_bot").resolve()
+
+    # Путь к папке с обработчиками бота
+    _bot_handlers_path: Path = _bot_path / "handlers"
+
+    # Шаблон для имени файлов обработчиков бота
+    _bot_handlers_filename_pattern: str = "_{handler_name}.py"
+
     # Путь к файлу базы данных
     database_file_path: Path = Path("database.sqlite3").resolve()
+
+    # Список используемых обработчиков бота
+    handlers: List[str] = field(
+        default_factory=lambda: [
+            "cancel",
+            "language",
+            "register",
+            "start"
+        ]
+    )
 
     # Локаль по умолчанию для новых пользователей
     locale_default: str = "ru"
@@ -61,6 +80,9 @@ def _set_config_data(
     Args:
         field (str): Поле конфигурации. (__config_data[field] / Config.field).
     """
+    if field.startswith("_"):
+        return None
+
     data: Any = __config_data.get(field)
 
     # Если в файле конфигурации не указан параметр - использует
@@ -76,7 +98,7 @@ def _set_config_data(
     elif field in __paths:
         data = Path(data).resolve()
 
-    setattr(__config, field, str(data))
+    setattr(__config, field, data)
 
 
 def get_config(
