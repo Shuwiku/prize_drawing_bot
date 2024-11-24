@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""DOCSTRING."""
+"""Инструменты для настройки и получения обработчиков бота."""
 
 import importlib
 from pathlib import Path
