@@ -11,6 +11,7 @@ from config import Config, get_config
 from ._check_i18n import check_i18n
 from ._load_bot_token import load_bot_token
 from ._setup_logging import setup_logging
+from utils import set_locales_list
 
 
 def setup(
@@ -29,6 +30,9 @@ def setup(
         log_level_std=config.log_level_std,
         log_files_path=config.log_files_path
     )
+
+    # Настройка списка локалей бота
+    set_locales_list(locale_folders_path=Config.locales_folder_path)
 
     # Настройка базы данных
     data.init(database_file_path=config.database_file_path)
