@@ -82,7 +82,10 @@ def init(
 
     # Настройка интернационализации (i18n)
     i18n = I18nMiddleware(
-        core=FluentRuntimeCore(path=locales_path),
+        core=FluentRuntimeCore(
+            path=locales_path,
+            raise_key_error=False
+        ),
         default_locale=locale_default,
         manager=I18nMiddlewareManager()
     )
