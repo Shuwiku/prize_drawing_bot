@@ -69,6 +69,8 @@ def init(
         token=bot_token
     )
 
+    logger.trace("Объект бота создан.")  # Логирование
+
     # Настройка диспетчера
     __dispatcher = Dispatcher()
     __dispatcher.include_router(router=get_router_handlers())
@@ -77,8 +79,7 @@ def init(
         middleware=DatabaseMiddleware()
     )
 
-    # Логирование
-    logger.trace("Объекты бота и диспетчера созданы и настроены.")
+    logger.trace("Объект диспетчера создан.")  # Логирование
 
     # Настройка интернационализации (i18n)
     i18n = I18nMiddleware(

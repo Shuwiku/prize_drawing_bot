@@ -18,7 +18,11 @@ def load_bot_token(
     """
     load_dotenv()  # Загружает файл ".env"
     bot_token: Optional[str] = os.getenv("BOT_TOKEN")
+
     if not bot_token or not bot_token.strip():
         logger.error("Токен бота не указан!")  # Логирование
         sys.exit()
+
+    logger.trace("Токен бота получен.")  # Логирование
+
     return bot_token

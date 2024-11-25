@@ -22,17 +22,24 @@ def setup_logging(
         log_level_std (str): Уровень логирования для вывода в терминал.
         log_files_path (Union[Path, str]): Путь к файлам логов.
     """
+    print("Настройка логирования")  # "Логирование"
+
     logger.remove()  # Убирает настройки по умолчанию
+
     logger.add(  # Вывод логов в терминал
         sink=sys.stderr,
         level=log_level_std,
         format=log_format
     )
+
     logger.add(  # Запись логов в файл
         sink=log_files_path,
         level=log_level_file,
         format=log_format
     )
-    logger.trace("Логирование настроено.")  # Логирование
-    logger.info("Путь к файлам журнала:")  # Логирование
-    logger.info(f"$ {log_files_path}")  # Логирование
+
+    # Логирование
+    logger.trace("Логирование настроено.")
+    logger.info("Путь к файлам журнала:")
+    logger.info(f"$ {log_files_path}")
+ 
