@@ -3,6 +3,7 @@
     "handlers": [
         "cancel",
         "language",
+        "languages",
         "register",
         "start"
     ],

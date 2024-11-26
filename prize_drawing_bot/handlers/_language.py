@@ -11,10 +11,32 @@ from loguru import logger
 from filters import CallbackHaveMessage, MessageFromUser, UserRegistered
 from keyboards.inline import inline_languages_list
 from states import Language
-from utils import change_keyboard, delete_message
+from utils import change_keyboard, delete_message, get_locales_list
 
 
 router: Router = Router(name=__name__)
+
+
+async def set_language_by_argument(
+    i18n: I18nContext,
+    language: str,
+    message: Message
+) -> None:
+    """Позволяет пользователю настроить локаль без inline-клавиатуры."""
+
+    # Проверка, что локаль, переданная пользователем, есть в списке
+    if language not in get_locales_list():
+        await message.answer(
+            text=i18n.get(
+                "language-not-found",
+                language=language
+            )
+        )
+        return None
+
+    # Устанавливает новую локаль пользователю
+    await i18n.set_locale(locale=language)
+    await message.answer(text=i18n.get("language-change-successfully"))
 
 
 @router.message(
@@ -30,10 +52,23 @@ async def command_language(
     """Даёт возможность пользователю сменить язык в боте.
 
     Настраивает машину состояний и отправляет пользователю сообщение с
-    inline-клавиатурой со списком локалей бота.
+    inline-клавиатурой со списком локалей бота, либо, если в сообщении
+    пользователя есть дополнительные аргументы, может установить новую локаль
+    без клавиатуры.
     """
-    logger.debug("Обработчик 'command_language'.")  # Логирование
+    logger.debug("Обработчик: 'command_language'.")  # Логирование
 
+    # Если пользователь написал сообщение по типу: "/locale ru"
+    args: list[str] = message.text.split()  # type: ignore
+    if len(args) > 1:
+        return await set_language_by_argument(
+            i18n=i18n,
+            language=args[1],
+            message=message
+        )
+
+    # В противном случае отправляем inline-клавиатуру с локалями бота
+    # и настраиваем машину состояний
     await state.set_state(Language.confirm)
     await message.answer(
         text=i18n.get("language-change"),
@@ -97,7 +132,12 @@ async def state_language_default(
         chat_id=message.from_user.id,  # type: ignore
         message_id=message.message_id - 1
     )
-    await message.answer(text=i18n.get("language-change-default"))
+    await message.answer(
+        text=i18n.get(
+            "language-change-default",
+            languages=", ".join(get_locales_list())
+        )
+    )
 
     # Повторно отправляет сообщение с inline-клавиатурой со списком локалей
     # По сути, то же самое что и вызов обработчика 'command_language'
