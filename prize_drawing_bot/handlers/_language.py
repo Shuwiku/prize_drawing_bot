@@ -26,12 +26,7 @@ async def set_language_by_argument(
 
     # Проверка, что локаль, переданная пользователем, есть в списке
     if language not in get_locales_list():
-        await message.answer(
-            text=i18n.get(
-                "language-not-found",
-                language=language
-            )
-        )
+        await message.answer(text=i18n.get("language-not-found"))
         return None
 
     # Устанавливает новую локаль пользователю
