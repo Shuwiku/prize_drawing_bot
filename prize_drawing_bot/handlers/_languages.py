@@ -24,7 +24,7 @@ async def command_languages(
     i18n: I18nContext,
 ) -> None:
     """Выводит список доступных локалей бота."""
-    logger.debug("Обработчик: 'command_languages'.")  # Логирование
+    logger.debug("Обработчик:\tcommand_languages")  # Логирование
     await message.answer(
         text=i18n.get(
             "languages-list",

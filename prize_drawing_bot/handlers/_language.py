@@ -23,6 +23,7 @@ async def set_language_by_argument(
     message: Message
 ) -> None:
     """Позволяет пользователю настроить локаль без inline-клавиатуры."""
+    logger.debug("Обработчик:\tset_language_by_argument")
 
     # Проверка, что локаль, переданная пользователем, есть в списке
     if language not in get_locales_list():
@@ -61,7 +62,7 @@ async def command_language(
     пользователя есть дополнительные аргументы, может установить новую локаль
     без клавиатуры.
     """
-    logger.debug("Обработчик: 'command_language'.")  # Логирование
+    logger.debug("Обработчик:\tcommand_language")  # Логирование
 
     # Если пользователь написал сообщение по типу: "/locale ru"
     args: list[str] = message.text.split()  # type: ignore
@@ -95,7 +96,7 @@ async def callback_language_change(
 
     Устанавливает новую локаль и отключает машину состояний.
     """
-    logger.debug("Обработчик 'callback_language_change'.")  # Логирование
+    logger.debug("Обработчик:\tcallback_language_change")  # Логирование
 
     message: Message = callback.message  # type: ignore
 
@@ -135,7 +136,7 @@ async def state_language_default(
     Вызывается в случае, если пользователь по какой-либо причине не нажал на
     кнопку из inline-клавиатуры.
     """
-    logger.debug("Обработчик 'state_language_default'.")  # Логирование
+    logger.debug("Обработчик:\tstate_language_default")  # Логирование
 
     # Удаляет сообщение бота с inline-клавиатурой
     await delete_message(

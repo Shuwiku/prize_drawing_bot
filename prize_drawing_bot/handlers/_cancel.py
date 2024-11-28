@@ -31,7 +31,7 @@ async def command_cancel(
     Останавливает машину состояний и удаляет сообщение бота
     с inline-клавиатурой.
     """
-    logger.debug("Обработчик 'command_cancel'.")
+    logger.debug("Обработчик:\tcommand_cancel")
 
     # Машина состояний НЕ запущена
     if not await state.get_state():
@@ -62,7 +62,7 @@ async def callback_cancel(
     Останавливает машину состояний и удаляет сообщение бота
     с inline-клавиатурой.
     """
-    logger.debug("Обработчик 'callback_cancel'.")
+    logger.debug("Обработчик:\tcallback_cancel")
 
     if not await state.get_state():  # Машина состояний НЕ запущена
         return

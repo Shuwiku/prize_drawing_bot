@@ -26,7 +26,7 @@ class CallbackHaveMessage(Filter):
             bool: True, если есть доступ к параметру callback.message.
                 В противном случае - False.
         """
-        logger.debug("Фильтр 'CallbackHaveMessage'.")  # Логирование
+        logger.debug("Фильтр:\t\tCallbackHaveMessage")  # Логирование
 
         # Я не знаю почему и как, но сюда попадают события, которые не должны
         # попадать. Например, если просто ввести команду "/start", то

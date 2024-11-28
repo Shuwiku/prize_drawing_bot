@@ -30,7 +30,7 @@ async def command_register(
     state: FSMContext
 ) -> None:
     """Запрашивает подтверждение регистрации у пользователя."""
-    logger.debug("Обработчик 'command_register'.")  # Логирование
+    logger.debug("Обработчик:\tcommand_register")  # Логирование
 
     # Если пользователя нет в базе данных - настраиваем машину состояний и
     # запрашиваем у него подтверждение регистрации
@@ -61,7 +61,7 @@ async def callback_state_register_confirm(
     Добавляет пользователя в базу данных и отключает машину состояний.
     """
     # Логирование
-    logger.debug("Обработчик 'callback_state_register_confirm'.")
+    logger.debug("Обработчик:\tcallback_state_register_confirm")
 
     message: Message = callback.message  # type: ignore
 
@@ -98,7 +98,7 @@ async def state_register_default(
     Вызывается в случае, если пользователь по какой-либо причине не нажал на
     кнопку из inline-клавиатуры.
     """
-    logger.debug("Обработчик 'state_register_default'.")  # Логирование
+    logger.debug("Обработчик:\tstate_register_default")  # Логирование
 
     # Удаляет сообщение с inline-клавиатурой
     await delete_message(

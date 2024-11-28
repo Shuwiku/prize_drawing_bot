@@ -24,7 +24,7 @@ async def command_start(
     i18n: I18nContext
 ) -> None:
     """Выводит краткую информацию о боте."""
-    logger.debug("Обработчик 'command_start'.")
+    logger.debug("Обработчик:\tcommand_start")
 
     await message.answer(text=i18n.get("start"))
 

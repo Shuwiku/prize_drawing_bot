@@ -26,7 +26,7 @@ class MessageFromUser(Filter):
             bool: True, если есть доступ к параметру message.from_user.
                 В противном случае - False.
         """
-        logger.debug("Фильтр 'MessageFromUser'.")  # Логирование
+        logger.debug("Фильтр:\t\tMessageFromUser")  # Логирование
 
         if message.from_user:
             return True
