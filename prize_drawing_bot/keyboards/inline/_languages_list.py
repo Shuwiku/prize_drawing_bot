@@ -21,7 +21,7 @@ _builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
 _builder.row(
     *_buttons,
     InlineKeyboardButton(
-        text=LazyProxy("btn-cancel"),
+        text=LazyProxy("button-cancel"),
         callback_data="cancel"
     ),
     width=1

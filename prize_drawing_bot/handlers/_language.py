@@ -26,12 +26,22 @@ async def set_language_by_argument(
 
     # Проверка, что локаль, переданная пользователем, есть в списке
     if language not in get_locales_list():
-        await message.answer(text=i18n.get("language-not-found"))
+        await message.answer(
+            text=i18n.get(
+                "language-not-found",
+                language=language
+            )
+        )
         return None
 
     # Устанавливает новую локаль пользователю
     await i18n.set_locale(locale=language)
-    await message.answer(text=i18n.get("language-change-successfully"))
+    await message.answer(
+        text=i18n.get(
+            "language-change-successfully",
+            language=i18n.get(f"locale-{language}")
+        )
+    )
 
 
 @router.message(
@@ -104,7 +114,12 @@ async def callback_language_change(
     # Устанавливает новую локаль пользователю
     await i18n.set_locale(locale=language)
 
-    await message.answer(text=i18n.get("language-change-successfully"))
+    await message.answer(
+        text=i18n.get(
+            "language-change-successfully",
+            language=i18n.get(f"locale-{language}")
+        )
+    )
 
 
 @router.message(
