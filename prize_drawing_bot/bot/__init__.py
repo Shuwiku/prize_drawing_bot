@@ -9,8 +9,8 @@ from . import _bot, _dispatcher, _i18n
 # Это позволяет импортировать функции напрямую из модуля
 # Вместо:   from bot._bot import get_bot
 # Будет:    from bot import get_bot
-from ._bot import get_bot  # F401
-from ._dispatcher import get_dispatcher  # F401
+from ._bot import get_bot  # noqa: F401
+from ._dispatcher import get_dispatcher  # noqa: F401
 
 
 def init(
