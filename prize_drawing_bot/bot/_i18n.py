@@ -2,7 +2,6 @@
 """Функции для создания и настройки интернационализации бота."""
 
 from pathlib import Path
-from typing import Union
 
 from aiogram_i18n import I18nMiddleware
 from aiogram_i18n.cores.fluent_runtime_core import FluentRuntimeCore
