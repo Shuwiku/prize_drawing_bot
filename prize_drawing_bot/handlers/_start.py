@@ -28,6 +28,7 @@ async def command_start(
 
     await message.answer(text=i18n.get("start"))
 
-    # Пользователя нет в базе данных
-    if not database.get_user(uid=message.from_user.id):  # type: ignore
-        await message.answer(text=i18n.get("start-user-not-registered"))
+    # Добавляет пользователя в базу данных бота, если его там нет
+    uid: int = message.from_user.id  # type: ignore
+    if not database.get_user(uid=uid):
+        database.add_user(uid=uid)
