@@ -5,6 +5,7 @@
 """
 
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 from sqlite3 import Connection, Cursor
 from typing import Any, Optional, Union
@@ -92,7 +93,7 @@ class Database:
         """
         self._execute(
             query=_queries.add_user,
-            parameters=(uid,)
+            parameters=(uid, datetime.now())
         )
 
     def get_user(

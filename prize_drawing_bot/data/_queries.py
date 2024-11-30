@@ -3,7 +3,10 @@
 
 # Добавляет нового пользователя в базу данных
 add_user: str = """
-INSERT INTO user (uid) VALUES (?)
+INSERT INTO user (
+    uid,
+    registration_date
+) VALUES (?, ?)
 """
 
 # Создаёт индекс для поля uid таблицы user
@@ -15,7 +18,9 @@ CREATE INDEX IF NOT EXISTS index_uid ON user (uid)
 create_table_user: str = """
 CREATE TABLE IF NOT EXISTS user (
     uid INTEGER PRIMARY KEY,
-    language VARCHAR DEFAULT "ru"
+    draw_count INTEGER NOT NULL DEFAULT "0",
+    language VARCHAR NOT NULL DEFAULT "ru",
+    registration_date DATETIME NOT NULL
 )
 """
 
