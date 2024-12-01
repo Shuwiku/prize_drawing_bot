@@ -4,7 +4,9 @@
 from aiogram import F, Router
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State
 from aiogram.types import CallbackQuery, Message
+from aiogram_i18n import LazyProxy
 from aiogram_i18n.context import I18nContext
 from loguru import logger
 
@@ -46,6 +48,10 @@ async def set_language_by_argument(
 
 
 @router.message(
+    F.text == LazyProxy("button-language"),
+    StateFilter(None)
+)
+@router.message(
     Command(commands=["language"]),
     StateFilter(None)
 )
@@ -65,7 +71,7 @@ async def command_language(
 
     # Если пользователь написал сообщение по типу: "/locale ru"
     args: list[str] = message.text.split()  # type: ignore
-    if len(args) > 1:
+    if len(args) > 1 and args[0] == "/language":
         return await set_language_by_argument(
             i18n=i18n,
             language=args[1],
