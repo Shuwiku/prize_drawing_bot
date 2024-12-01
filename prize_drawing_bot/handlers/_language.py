@@ -8,7 +8,7 @@ from aiogram.types import CallbackQuery, Message
 from aiogram_i18n.context import I18nContext
 from loguru import logger
 
-from filters import CallbackHaveMessage, MessageFromUser, UserRegistered
+from filters import CallbackHaveMessage, MessageFromUser
 from keyboards.inline import inline_languages_list
 from states import Language
 from utils import change_keyboard, delete_message, get_locales_list
@@ -47,8 +47,7 @@ async def set_language_by_argument(
 
 @router.message(
     Command(commands=["language"]),
-    StateFilter(None),
-    UserRegistered()
+    StateFilter(None)
 )
 async def command_language(
     message: Message,
@@ -84,8 +83,7 @@ async def command_language(
 
 @router.callback_query(
     F.data.startswith("set_language_"),
-    CallbackHaveMessage(),
-    UserRegistered()
+    CallbackHaveMessage()
 )
 async def callback_language_change(
     callback: CallbackQuery,

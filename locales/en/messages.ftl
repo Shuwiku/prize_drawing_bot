@@ -20,6 +20,9 @@ button-register = ✅ Register
 # Command or cancellation request (/cancel)
 action-canceled = ❌ Action canceled.
 
+# Used by the filters.CallbackHaveMessage()
+callback-have-not-message = ❌ Callback could not be processed!
+
 # Command /language without arguments. Sent along with an inline keyboard listing languages
 language-change = 📃 Please select a language from the list below:
 
