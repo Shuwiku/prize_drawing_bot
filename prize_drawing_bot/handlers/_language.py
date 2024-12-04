@@ -12,6 +12,7 @@ from loguru import logger
 
 from filters import CallbackHaveMessage, MessageFromUser
 from keyboards.inline import inline_languages_list
+from keyboards.reply import reply_menu
 from states import Language
 from utils import change_keyboard, delete_message, get_locales_list
 
@@ -43,7 +44,8 @@ async def set_language_by_argument(
         text=i18n.get(
             "language-change-successfully",
             language=i18n.get(f"locale-{language}")
-        )
+        ),
+        reply_markup=reply_menu
     )
 
 
@@ -123,7 +125,8 @@ async def callback_language_change(
         text=i18n.get(
             "language-change-successfully",
             language=i18n.get(f"locale-{language}")
-        )
+        ),
+        reply_markup=reply_menu
     )
 
 

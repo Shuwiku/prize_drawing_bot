@@ -12,7 +12,9 @@
 
 button-cancel = ❌ Cancel
 
-button-register = ✅ Register
+button-language = 🏳️ Language
+
+button-profile = 👤 Profile
 
 
 ## Bot Responses
@@ -54,6 +56,13 @@ locale-en = 🇺🇸 English
 # Locale RU
 locale-ru = 🇷🇺 Русский
 
+# Bot Menu Message
+menu = Main sections of the bot:
+
+    <b>👤 Profile</b> - Displays your profile
+
+    <b>🏳️ Language</b> - Change the language in the bot
+
 
 # Message is not from a user
 # Used by the filter filters.MessageFromUser()
@@ -64,29 +73,3 @@ message-not-from-user = ❌ Unable to process the message!
 start = <b>{-bot-name}</b> is a simple yet functional bot for conducting raffles.
 
     The bot can start, conduct raffles, and select winners using a referral link system, and it also has bot protection in the form of CAPTCHA.
-
-# Additional message when receiving the /start command if the user is not registered
-start-user-not-registered = ✅ By default, the bot does not store any information about you, so access to most features will be limited. Use the <i>/register</i> command to gain access to the bot's services.
-
-# Sent from the filter filter.UserRegistered() if the user is not registered
-user-not-registered = ❌ Access is only for registered users.
-    Use the <i>/register</i> command to register with the bot.
-
-
-# User registration in the bot
-user-registration = ⚠️ After confirming your registration, the bot will save your Telegram ID in the database. Please note that the profile ID cannot be changed, so be careful when using any bots.
-
-    ✅ At any time, you can request the deletion of your data from the bot, after which your profile will be removed from the current database <b>but not from backups</b>! Deleting your profile will also cancel your participation in all registered raffles.
-
-# User used the /register command, but they are already in the database
-user-registration-already-registered = ✅ You are already registered!
-
-# User confirmed registration in the bot
-user-registration-confirm-accept = ✅ You have been successfully registered!
-
-# User declined registration in the bot
-user-registration-confirm-decline = ❌ You canceled the registration.
-
-# Confirmation of registration in the bot, but the user did not choose Yes or No and wrote something else
-user-registration-confirm-default = ❌ Please use the buttons attached to the confirmation message. You can also cancel the action with the command <i>/cancel</i>.
-
