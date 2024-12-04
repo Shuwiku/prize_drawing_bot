@@ -4,7 +4,6 @@
 from aiogram import F, Router
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State
 from aiogram.types import CallbackQuery, Message
 from aiogram_i18n import LazyProxy
 from aiogram_i18n.context import I18nContext
