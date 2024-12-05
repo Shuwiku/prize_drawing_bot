@@ -25,7 +25,7 @@ async def command_start(
     i18n: I18nContext
 ) -> None:
     """Выводит краткую информацию о боте."""
-    logger.debug("Обработчик:\tcommand_start")
+    logger.debug("Обработчик:\tcommand_start")  # Логирование
 
     await message.answer(text=i18n.get("start"))
     await message.answer(
@@ -37,3 +37,4 @@ async def command_start(
     uid: int = message.from_user.id  # type: ignore
     if not database.get_user(uid=uid):
         database.add_user(uid=uid)
+        logger.info(f"Добавлен новый пользователь: {uid}")  # Логирование
