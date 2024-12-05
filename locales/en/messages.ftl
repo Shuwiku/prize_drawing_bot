@@ -69,6 +69,13 @@ menu = Main sections of the bot:
 message-not-from-user = ❌ Unable to process the message!
     The message did not come from a user.
 
+# User Information Message
+profile = 👤 User Profile <b>{ $username }</b>
+
+    <b>Language:</b> { $language }
+    <b>Draws Conducted:</b> { $draw_count }
+    <b>Registered:</b> { $registration_date }
+
 # When receiving the /start command
 start = <b>{-bot-name}</b> is a simple yet functional bot for conducting raffles.
 
