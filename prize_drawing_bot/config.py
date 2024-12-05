@@ -36,6 +36,10 @@ class Config:
     # Путь к файлу базы данных
     database_file_path: Path = Path("database.sqlite3").resolve()
 
+    # TODO: Мне не нравится текущая реализация этого, надо изменить
+    # Формат даты регистрации пользователя в базе данных
+    datetime_format: str = "%d-%m-%Y %H:%M"
+
     # Список используемых обработчиков бота
     handlers: List[str] = field(
         default_factory=lambda: [

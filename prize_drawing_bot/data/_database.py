@@ -19,10 +19,12 @@ class Database:
     """Класс базы данных."""
 
     _connection: Connection
+    _datetime_format: str
 
     def __init__(
         self,
-        database_file: Union[Path, str]
+        database_file: Union[Path, str],
+        datetime_format: str
     ) -> None:
         """Инициализация объекта базы данных.
 
@@ -33,6 +35,7 @@ class Database:
             database_file (str): Путь к файлу базы данных.
         """
         self._connection = sqlite3.connect(database=database_file)
+        self._datetime_format = datetime_format
         self.__create_tables()
         self.__create_indexes()
 
@@ -93,7 +96,10 @@ class Database:
         """
         self._execute(
             query=_queries.add_user,
-            parameters=(uid, datetime.now())
+            parameters=(
+                uid,
+                datetime.now().strftime(self._datetime_format)
+            )
         )
 
     def get_user(

@@ -1,5 +1,6 @@
 {
     "database_file_path": "database/database.sqlite3",
+    "datetime_format": "%d.%m.%Y %H:%M",
     "handlers": [
         "cancel",
         "language",

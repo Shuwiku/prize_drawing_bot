@@ -31,7 +31,10 @@ def setup(
     set_locales_list(locale_folders_path=Config.locales_folder_path)
 
     # Настройка базы данных
-    data.init(database_file_path=config.database_file_path)
+    data.init(
+        database_file_path=config.database_file_path,
+        datetime_format=Config.datetime_format
+    )
 
     # Настройка обработчиков бота
     handlers.init(
